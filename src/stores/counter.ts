@@ -1,12 +1,8 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+export const useAsideStore = defineStore('aside', () => {
+	const isLeftIcon = ref<boolean>(false)
 
-  return { count, doubleCount, increment }
+	return { isLeftIcon }
 })

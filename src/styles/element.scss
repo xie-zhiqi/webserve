@@ -1,0 +1,8 @@
+.el-dropdown {
+    cursor: pointer;
+    text-align: center;
+
+    &>span {
+        outline: none;
+    }
+}

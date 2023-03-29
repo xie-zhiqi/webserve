@@ -1,97 +1,65 @@
 <script lang="ts" setup>
-import { Menu as Location } from '@element-plus/icons-vue'
-import { ElNotification as notify } from 'element-plus'
-
-const handleOpen = (key: string, keyPath: string[]) => {
-	console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-	console.log(key, keyPath)
-}
-const onBack = () => {
-	notify('Back')
-}
+import Aside from './components/aside.vue'
+import Htop from './components/htop.vue'
+import fbom from './components/fbom.vue'
+import { storeToRefs } from 'pinia'
+import { useAsideStore } from '@/stores/counter'
+const { isLeftIcon } = storeToRefs(useAsideStore())
 </script>
 
 <template>
 	<div class="common-layout">
 		<el-container>
-			<el-aside width="200px" class="aside">
-				<div class="logo">
-					<img src="@/assets/logo.png" alt="" />
-					<h1>峰团运营平台</h1>
-				</div>
-				<div class="shuxing">
-					<el-row class="tac">
-						<el-col :span="12">
-							<el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
-								<el-sub-menu index="1">
-									<template #title>
-										<el-icon><location /></el-icon>
-										<span>Navigator One</span>
-									</template>
-									<el-menu-item index="1-2">item two</el-menu-item>
-								</el-sub-menu>
-								<el-sub-menu index="2">
-									<template #title>
-										<el-icon><location /></el-icon>
-										<span>Navigator One</span>
-									</template>
-									<el-menu-item index="1-2">item two</el-menu-item>
-								</el-sub-menu>
-								<el-sub-menu index="3">
-									<template #title>
-										<el-icon><location /></el-icon>
-										<span>Navigator One</span>
-									</template>
-									<el-menu-item index="1-2">item two</el-menu-item>
-								</el-sub-menu>
-							</el-menu>
-						</el-col>
-					</el-row>
-				</div>
+			<div :class="{ menuMobileBg: true, menuMobileBgClose: true }"></div>
+			<el-aside
+				:style="{ width: isLeftIcon ? '64px' : '200px' }"
+				:class="{ aside: true, menuMobile: true, menuMobileClose: true }"
+			>
+				<Aside></Aside>
 			</el-aside>
 			<el-main class="main">
-				<div aria-label="A complete example of page header">
-					<el-page-header @back="onBack">
-						<template #breadcrumb>
-							<el-breadcrumb separator="/">
-								<el-breadcrumb-item :to="{ path: './page-header.html' }"> homepage </el-breadcrumb-item>
-								<el-breadcrumb-item><a href="./page-header.html">route 1</a></el-breadcrumb-item>
-								<el-breadcrumb-item>route 2</el-breadcrumb-item>
-							</el-breadcrumb>
-						</template>
-						<template #content>
-							<div class="flex items-center">
-								<el-avatar class="mr-3" :size="32" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-								<span class="text-large font-600 mr-3"> Title </span>
-								<span class="text-sm mr-2" style="color: var(--el-text-color-regular)"> Sub title </span>
-								<el-tag>Default</el-tag>
-							</div>
-						</template>
-						<template #extra>
-							<div class="flex items-center">
-								<el-button>Print</el-button>
-								<el-button type="primary" class="ml-2">Edit</el-button>
-							</div>
-						</template>
-
-						<el-descriptions :column="3" size="small" class="mt-4">
-							<el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-							<el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-							<el-descriptions-item label="Place">Suzhou</el-descriptions-item>
-							<el-descriptions-item label="Remarks">
-								<el-tag size="small">School</el-tag>
-							</el-descriptions-item>
-							<el-descriptions-item label="Address"
-								>No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-							</el-descriptions-item>
-						</el-descriptions>
-						<p class="mt-4 text-sm">
-							Element Plus team uses <b>weekly</b> release strategy under normal circumstance, but critical bug fixes would
-							require hotfix so the actual release number <b>could be</b> more than 1 per week.
-						</p>
-					</el-page-header>
+				<div class="hander">
+					<Htop></Htop>
+					<fbom></fbom>
+				</div>
+				<div class="content">
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+					<h1>12</h1>
+				</div>
+				<div class="footer">
+					<div>2023 © QFADMIN 前端扛把子@千锋教育 🔥 👊🏻👊🏻👊🏻</div>
 				</div>
 			</el-main>
 		</el-container>
@@ -100,53 +68,73 @@ const onBack = () => {
 <style lang="scss">
 .common-layout {
 	height: 100%;
-	// width: 200px;
 }
 .aside {
 	background-color: #2d3a4b;
+	height: 100%;
 }
 .el-container {
 	height: 100%;
+}
+.el-main {
+	padding: 0 !important;
+}
+.el-aside {
+	transition: width 0.3s;
+}
+.aside {
+	border: none !important;
+}
 
-	.el-aside {
+.hander {
+	width: 100%;
+	height: 90px;
+	display: flex;
+	flex-direction: column;
+}
+.content {
+	background-color: #327f8a;
+	width: 96%;
+	height: calc(100% - 170px);
+	margin: 20px auto;
+	overflow-y: scroll;
+}
+.footer {
+	width: 100%;
+	height: 40px;
+	background-color: #dd4444;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+	color: #fff;
+}
+// }
+// 移动端菜单样式
+@media screen and (max-width: 990px) {
+	.menuMobileBg {
+		width: 100%;
 		height: 100%;
+		background-color: rgba(0, 0, 0, 0.3);
+		position: fixed;
+		left: 0;
+		z-index: 11;
+		display: block;
 	}
-	.main {
-		// background-color: rgb(24, 141, 147);
+	.menuMobileBgClose {
+		display: none !important;
 	}
-	.aside {
-		// background-color: rgb(88, 175, 79);
-		border: 1px solid #000;
-		.logo {
-			height: 50px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			img {
-				padding-right: 5px;
-			}
-			h1 {
-				color: #fff;
-			}
-		}
-		.shuxing {
-			.el-menu {
-				width: 200px;
-				background-color: #2d3a4b !important;
-				.el-row {
-					width: 200px;
-				}
-			}
-			.el-col-12 {
-				max-width: 200px !important;
-				.el-sub-menu__title {
-					color: rgb(255, 255, 255) !important;
-				}
-				.el-sub-menu:hover {
-					background-color: rgb(205, 38, 8) !important;
-				}
-			}
-		}
+
+	.menuMobile {
+		position: fixed;
+		z-index: 11;
+		left: 0;
+		transition: all 0.5s;
+	}
+	.menuMobileClose {
+		position: fixed;
+		z-index: 10;
+		left: -200px !important;
 	}
 }
 </style>
