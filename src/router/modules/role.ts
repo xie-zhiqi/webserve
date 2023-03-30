@@ -12,7 +12,7 @@ export default [
 			{
 				path: '/role/create',
 				meta: { title: '角色创建', icon: 'icon-zengjia1' },
-				component: () => import('@/views/role/create.vue')
+				component: () => import('@/views/role/role.vue')
 			}
 		]
 	}

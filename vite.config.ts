@@ -10,29 +10,30 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    // * EsLint 报错信息显示在浏览器界面上
-    eslintPlugin(), // 变量定义了没使用  页面也要报错
-    // ...
-    AutoImport({
-      resolvers: [ElementPlusResolver()]
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()]
-    })
-  ],
-  css: {
-    preprocessorOptions: {
-      // define global scss variable
-      scss: {
-        additionalData: `@import '@/styles/variables.scss';`
-      }
-    }
-  },
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+	plugins: [
+		vue(),
+		// * EsLint 报错信息显示在浏览器界面上
+		eslintPlugin(), // 变量定义了没使用  页面也要报错
+		// ...
+		AutoImport({
+			resolvers: [ElementPlusResolver()]
+		}),
+		Components({
+			resolvers: [ElementPlusResolver()]
+		})
+	],
+	css: {
+		preprocessorOptions: {
+			// define global scss variable
+			scss: {
+				additionalData: `@import '@/styles/variables.scss';`
+			}
+		}
+	},
+	resolve: {
+		alias: {
+			'@': fileURLToPath(new URL('./src', import.meta.url)),
+			'~mock': fileURLToPath(new URL('./mock', import.meta.url))
+		}
+	}
 })

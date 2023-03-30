@@ -12,9 +12,32 @@ const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
-			path: '/home',
+			path: '/',
+			name: 'user',
 			alias: '/',
-			component: () => import('@/layout/index.vue')
+			component: () => import('@/layout/index.vue'),
+			children: [
+				{
+					path: '/user/create',
+					name: 'user',
+					component: () => import('@/views/users/create.vue')
+				},
+				{
+					path: '/user',
+					name: 'user',
+					component: () => import('@/views/users/users.vue')
+				},
+				{
+					path: '/role',
+					name: 'role',
+					component: () => import('@/views/role/role.vue')
+				},
+				{
+					path: '/role/create',
+					name: 'role',
+					component: () => import('@/views/role/create.vue')
+				}
+			]
 		}
 	]
 })

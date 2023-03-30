@@ -60,7 +60,7 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 	height: 50px;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 1px solid #999;
+	border-bottom: 1px solid #e3e3e3;
 	.btn {
 		font-size: 22px;
 		margin: 5px;

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { RouterView } from 'vue-router'
 import Aside from './components/aside.vue'
 import Htop from './components/htop.vue'
 import fbom from './components/fbom.vue'
@@ -12,7 +13,7 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 		<el-container>
 			<div :class="{ menuMobileBg: true, menuMobileBgClose: true }"></div>
 			<el-aside
-				:style="{ width: isLeftIcon ? '64px' : '200px' }"
+				:style="{ width: isLeftIcon ? '200px' : '64px' }"
 				:class="{ aside: true, menuMobile: true, menuMobileClose: true }"
 			>
 				<Aside></Aside>
@@ -23,43 +24,10 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 					<fbom></fbom>
 				</div>
 				<div class="content">
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
-					<h1>12</h1>
+					<RouterView />
 				</div>
 				<div class="footer">
-					<div>2023 © QFADMIN 前端扛把子@千锋教育 🔥 👊🏻👊🏻👊🏻</div>
+					<div>2023 © QFADMIN Weavers-出品</div>
 				</div>
 			</el-main>
 		</el-container>
@@ -79,6 +47,9 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 .el-main {
 	padding: 0 !important;
 }
+.main {
+	background-color: #f0f2f5;
+}
 .el-aside {
 	transition: width 0.3s;
 }
@@ -91,23 +62,25 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 	height: 90px;
 	display: flex;
 	flex-direction: column;
+	background-color: #fff;
 }
 .content {
-	background-color: #327f8a;
 	width: 96%;
 	height: calc(100% - 170px);
-	margin: 20px auto;
+	margin: auto;
 	overflow-y: scroll;
+	overflow-x: scroll;
+	margin: 20px auto;
 }
 .footer {
 	width: 100%;
 	height: 40px;
-	background-color: #dd4444;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-size: 14px;
-	color: #fff;
+	color: #2d3a4b;
+	background-color: #fff;
 }
 // }
 // 移动端菜单样式
@@ -136,5 +109,9 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 		z-index: 10;
 		left: -200px !important;
 	}
+}
+.fbom .fbom2 div .el-dropdown button[data-v-be356b50] {
+	height: 25px;
+	width: 58px;
 }
 </style>
