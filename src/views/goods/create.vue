@@ -2,6 +2,8 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
+import type { UploadProps } from 'element-plus'
 
 const ruleFormRef = ref<FormInstance>()
 
@@ -52,23 +54,74 @@ const resetForm = (formEl: FormInstance | undefined) => {
 	if (!formEl) return
 	formEl.resetFields()
 }
+
+// 图片上传
+const imageUrl = ref('')
+const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
+	imageUrl.value = URL.createObjectURL(uploadFile.raw!)
+}
+const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
+	if (rawFile.type !== 'image/jpeg') {
+		ElMessage.error('Avatar picture must be JPG format!')
+		return false
+	} else if (rawFile.size / 1024 / 1024 > 2) {
+		ElMessage.error('Avatar picture size can not exceed 2MB!')
+		return false
+	}
+	return true
+}
+
+// 所属门店选择器
+const value = ref('')
+const options = [
+	{
+		value: 'Option1',
+		label: 'Option1'
+	},
+	{
+		value: 'Option2',
+		label: 'Option2'
+	}
+]
 </script>
 <template>
 	<el-card class="box-card">
 		<template #header>
 			<div class="card-header">
-				<span>角色创建</span>
+				<span>商品创建</span>
 				<el-button class="button" text @click="$router.push('/')">返回</el-button>
 			</div>
 		</template>
 		<el-form ref="ruleFormRef" :model="formDare" status-icon :rules="rules" label-width="120px" class="demo-formDare">
-			<el-form-item label="角色名" prop="username">
-				<el-input v-model="formDare.username" placeholder="请输入角色名" type="text" autocomplete="off" />
+			<el-form-item label="商品名称" prop="username">
+				<el-input v-model="formDare.username" placeholder="请输入用户名" type="text" autocomplete="off" />
 			</el-form-item>
-			<el-form-item label="角色描述" prop="passworld">
-				<el-input v-model="formDare.passworld" placeholder="角色描述" type="password" autocomplete="off" />
+			<el-form-item label="库存" prop="passworld">
+				<el-input v-model="formDare.passworld" placeholder="请设置密码" type="password" autocomplete="off" />
 			</el-form-item>
-
+			<el-form-item label="市场价" prop="mobile">
+				<el-input v-model.number="formDare.mobile" placeholder="请输入手机号" />
+			</el-form-item>
+			<el-form-item label="销售价" prop="mobile">
+				<el-input v-model.number="formDare.mobile" placeholder="请输入手机号" />
+			</el-form-item>
+			<el-form-item label="头像" prop="Head">
+				<el-upload
+					class="avatar-uploader"
+					action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+					:show-file-list="false"
+					:on-success="handleAvatarSuccess"
+					:before-upload="beforeAvatarUpload"
+				>
+					<img v-if="imageUrl" :src="imageUrl" class="avatar" />
+					<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+				</el-upload>
+			</el-form-item>
+			<el-form-item label="所属门店" prop="mobile">
+				<el-select v-model="value" class="m-2" placeholder="请选择所属门店">
+					<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+				</el-select>
+			</el-form-item>
 			<el-form-item>
 				<el-button type="primary" @click="submitForm">立即创建</el-button>
 				<el-button @click="resetForm(ruleFormRef)">重置</el-button>

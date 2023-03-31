@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 <template>
-	<h1>角色列表</h1>
+	<div>数据分析页面</div>
 </template>
 <style lang="scss" scoped></style>

@@ -26,7 +26,7 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 	if (value === '') {
 		callback(new Error('请输入密码'))
 		// 测试两次输入不匹配
-		// } else if (value !== formDare.username) {
+		// } else if (value !== formDate.username) {
 		// 	callback(new Error("Two inputs don't match!"))
 	} else {
 		callback()
@@ -39,20 +39,20 @@ const rules = reactive<FormRules>({
 	mobile: [{ validator: checkAge, trigger: 'blur' }]
 })
 // 表单数据
-const formDare = reactive({
-	username: '',
+const formDate = reactive({
+	uname: '',
 	passworld: '',
 	mobile: ''
 })
 // 创建按钮提示
 const submitForm = () => {
-	console.log(formDare)
+	console.log(formDate)
 	ElMessage.success('创建成功')
+	state.value = false
 }
 //重置按钮
-const resetForm = (formEl: FormInstance | undefined) => {
-	if (!formEl) return
-	formEl.resetFields()
+const resetForm = () => {
+	ruleFormRef.value?.resetFields()
 }
 
 // 图片上传
@@ -70,24 +70,37 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 	}
 	return true
 }
+
+const state = ref(false)
+defineExpose({
+	state,
+	formDate
+})
 </script>
 <template>
-	<el-card class="box-card">
+	<el-dialog v-model="state" title="Tips" width="30%" :before-close="() => (state = false)">
 		<template #header>
 			<div class="card-header">
-				<span>用户创建</span>
-				<el-button class="button" text @click="$router.push('/')">点击</el-button>
+				<span>用户编辑</span>
 			</div>
 		</template>
-		<el-form ref="ruleFormRef" :model="formDare" status-icon :rules="rules" label-width="120px" class="demo-formDare">
-			<el-form-item label="用户名" prop="username">
-				<el-input v-model="formDare.username" placeholder="请输入用户名" type="text" autocomplete="off" />
+		<el-form
+			v-if="state"
+			ref="ruleFormRef"
+			:model="formDate"
+			status-icon
+			:rules="rules"
+			label-width="120px"
+			class="demo-formDate"
+		>
+			<el-form-item label="用户名" prop="uname">
+				<el-input v-model="formDate.uname" placeholder="请输入用户名" type="text" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="密码" prop="passworld">
-				<el-input v-model="formDare.passworld" placeholder="请设置密码" type="password" autocomplete="off" />
+				<el-input v-model="formDate.passworld" placeholder="请设置密码" type="password" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="手机号" prop="mobile">
-				<el-input v-model.number="formDare.mobile" placeholder="请输入手机号" />
+				<el-input v-model.number="formDate.mobile" placeholder="请输入手机号" />
 			</el-form-item>
 			<el-form-item label="头像" prop="Head">
 				<el-upload
@@ -104,16 +117,20 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 
 			<el-form-item>
 				<el-button type="primary" @click="submitForm">立即创建</el-button>
-				<el-button @click="resetForm(ruleFormRef)">重置</el-button>
+				<el-button @click="resetForm">重置</el-button>
 			</el-form-item>
 		</el-form>
-	</el-card>
+	</el-dialog>
 </template>
 <style lang="scss" scoped>
 .avatar-uploader .avatar {
 	width: 178px;
 	height: 178px;
 	display: block;
+}
+.el-input[data-v-f3899914] {
+	width: 70%;
+	height: 40px;
 }
 .card-header {
 	display: flex;
