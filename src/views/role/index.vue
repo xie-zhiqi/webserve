@@ -6,8 +6,8 @@ import { useConfirm } from '@/hooks/useConfirm'
 import { Search, Delete } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 // 组件
-// import UserEdit from './component/userEdit.vue'
-// import UserJuese from './component/userJuese.vue'
+import UserEdit from './component/userEdit.vue'
+import UserJuese from './component/userJuese.vue'
 
 // 收集表单数据
 const fromData = reactive({

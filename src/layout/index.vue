@@ -4,7 +4,7 @@ import Aside from './components/aside.vue'
 import Htop from './components/htop.vue'
 import fbom from './components/fbom.vue'
 import { storeToRefs } from 'pinia'
-import { useAsideStore } from '@/stores/counter'
+import { useAsideStore } from '@/stores/create'
 const { isLeftIcon } = storeToRefs(useAsideStore())
 </script>
 

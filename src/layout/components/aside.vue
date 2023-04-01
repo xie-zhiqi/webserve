@@ -3,7 +3,7 @@
 import { asyncRoutes } from '@/router'
 // import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useAsideStore } from '@/stores/counter'
+import { useAsideStore } from '@/stores/create'
 const { isLeftIcon } = storeToRefs(useAsideStore())
 
 console.log(isLeftIcon)
@@ -104,6 +104,7 @@ const handleClose = (key: string, keyPath: string[]) => {
 }
 :deep(.el-menu-item:hover) {
 	background-color: #262e3b !important;
+	color: #5a9cf8;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
 	width: 200px;

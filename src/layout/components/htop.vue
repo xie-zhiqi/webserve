@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ArrowRight } from '@element-plus/icons-vue'
-import { useAsideStore } from '@/stores/counter'
+import { useAsideStore } from '@/stores/create'
 import { storeToRefs } from 'pinia'
 
 const { isLeftIcon } = storeToRefs(useAsideStore())
