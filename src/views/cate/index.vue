@@ -55,27 +55,22 @@ const onuserEdit = (vlaue: any) => {
 			<el-table-column prop="created_at" label="创建于" width="185" align="center" />
 			<el-table-column prop="updated_at" label="更新于" width="189" align="center" />
 			<el-table-column label="操作" fixed="right" width="230" align="center">
-				<template #default="scope"
-					><el-button type="primary" @click="onuserEdit(scope.row)">
-						<el-icon><EditPen /></el-icon>
+				<template #default="scope"><el-button type="primary" @click="onuserEdit(scope.row)">
+						<el-icon>
+							<EditPen />
+						</el-icon>
 					</el-button>
 					<el-button type="danger" @click="onDelete">
-						<el-icon><Delete /></el-icon>
+						<el-icon>
+							<Delete />
+						</el-icon>
 						删除
-					</el-button></template
-				>
+					</el-button></template>
 			</el-table-column>
 		</el-table>
-		<el-pagination
-			v-model:current-page="fromData.pagenum"
-			v-model:page-size="fromData.pagesize"
-			:page-sizes="[100, 200, 300, 400]"
-			:background="true"
-			layout="total, sizes, prev, pager, next, jumper"
-			:total="400"
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-		/>
+		<el-pagination v-model:current-page="fromData.pagenum" v-model:page-size="fromData.pagesize"
+			:page-sizes="[100, 200, 300, 400]" :background="true" layout="total, sizes, prev, pager, next, jumper"
+			:total="400" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
 	</Divbox>
 </template>
 <style lang="scss" scoped>
@@ -84,19 +79,24 @@ const onuserEdit = (vlaue: any) => {
 	flex-direction: column;
 	justify-content: space-between;
 }
+
 .el-pagination {
 	justify-content: center;
 }
-.demo-pagination-block + .demo-pagination-block {
+
+.demo-pagination-block+.demo-pagination-block {
 	margin-top: 10px;
 }
+
 .demo-pagination-block .demonstration {
 	margin-bottom: 16px;
 }
+
 .el-table--fit {
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
+
 :deep(.filterbox) {
 	display: none;
 }

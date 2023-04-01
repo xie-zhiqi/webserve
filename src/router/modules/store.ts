@@ -11,8 +11,8 @@ export default [
 			},
 			{
 				path: '/store/create',
-				meta: { title: '门店创建', icon: 'icon-zengjia1' }
-				// component: () => import('@/views/store/create.vue')
+				meta: { title: '门店创建', icon: 'icon-zengjia1' },
+				component: () => import('@/views/store/create.vue')
 			}
 		]
 	}

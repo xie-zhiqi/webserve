@@ -56,7 +56,12 @@ declare module '@vue/runtime-core' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    QfBox: typeof import('./src/components/qfBox/index.vue')['default']
     QfBtn: typeof import('./src/components/qfBtn.vue')['default']
+    QfCard: typeof import('./src/components/qfCard/index.vue')['default']
+    QfForm: typeof import('./src/components/qfForm/index.vue')['default']
+    QfTable: typeof import('./src/components/qfTable/index.vue')['default']
+    QfUpload: typeof import('./src/components/qfUpload/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

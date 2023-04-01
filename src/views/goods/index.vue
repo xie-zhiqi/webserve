@@ -1,165 +1,99 @@
-<script setup lang="ts">
-// 接口 模块 hook  组件
-import mock from '~mock/user'
+<!-- eslint-disable no-undef -->
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
+<script setup lang='ts'>
+import mock from "~mock/goods"
+import { reactive } from "vue"
 
-import { useConfirm } from '@/hooks/useConfirm'
-import { ArrowDown, Search, Delete } from '@element-plus/icons-vue'
-import { reactive, ref } from 'vue'
-
-// 收集表单数据
-const fromData = reactive({
-	pagenum: 1,
-	pagesize: 10,
-	username: '',
-	mobile: '',
-	role_name: '',
-	created_at: [],
-	updated_at: []
-})
-// 表单折叠
-const isExpand = ref<boolean>(false)
-// 表单数据
-const forRef = ref()
-const onsubmit = () => {
-	forRef.value.validate((isScuccess: boolean) => {
-		if (isScuccess) {
-			console.log(fromData)
-		}
-	})
-}
-// 重置按钮
-const onReset = () => {
-	forRef.value.resetFields()
-}
-
-// 分页
-const handleSizeChange = (val: number) => {
-	console.log(`${val} items per page`)
-}
-const handleCurrentChange = (val: number) => {
-	console.log(`current page: ${val}`)
-}
-
-// 表格数据
 const tableDate = reactive({
 	list: mock.data,
-	total: 0
 })
 
-// 删除
-const onDelete = () => {
-	useConfirm()
-}
-// 编辑按钮
-const userEdit = ref()
-// 获取当前行的数据，传递给编辑组件
-const onuserEdit = (vlaue: any) => {
-	userEdit.value.state = true
-	userEdit.value.formDate.uname = vlaue.uname
-	userEdit.value.formDate.mobile = vlaue.mobile
-}
+const columns: Table.Columns[] = [
+	{
+		title: '编号', prop: 'id', width: 200
+	},
+	{ title: '所属门店', prop: 'store' },
+	{
+		title: '封面', type: 'img', payload: { src: 'img' }, width: 100
+	},
+	{
+		title: '标题', prop: 'title', tooltip: true, width: 200
+	},
+	{
+		title: '库存', prop: 'goods_number'
+	},
+	{
+		title: '市场价', prop: 'market_price'
+	},
+	{
+		title: '促销价', prop: 'shop_price'
+	},
+	{
+		title: '创建于', prop: 'created_at', width: 200
+	},
+	{
+		title: '操作', prop: 'created_at', width: 120, fixed: 'right', type: 'operations', payload: [
+			{
+				icon: 'icon-bianji',
+				click: (row: any) => console.log("修改", row)
+			},
+			{
+				icon: 'icon-shanchu',
+				type: 'danger',
+				click: (row: any) => console.log("删除", row)
+			}
+		]
+	},
+]
 
-// 分配角色按钮
-const userJuese = ref()
-const onuserJuese = (value: any) => {
-	userJuese.value.state = true
-	userJuese.value.formDate.username = value.uname
-	userJuese.value.formDate.role_name = value.role_name
-}
-// 分配角色
+const formBtn: Form.Btn[] = [
+	{
+		icon: 'icon-sousuo',
+		content: '搜索',
+		type: 'primary',
+		click: (formDate: any) => console.log('表单数据', formDate)
+	},
+	{
+		content: '重置',
+		type: 'default',
+
+	}
+]
+// 表单数据
+const formItem: Form.Item[] = [
+	{
+		field: 'goods_name',
+		label: '商品名称',
+		rules: [{ min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }],
+		type: 'text',
+		placeholder: '请输入商品名称'
+	}, {
+		field: 'creatd_at',
+
+		label: '创建于',
+		rules: [],
+
+		type: 'date',
+
+		isExpand: true
+	}
+]
 </script>
 <template>
-	<UserEdit ref="userEdit"></UserEdit>
-	<UserJuese ref="userJuese"></UserJuese>
-	<Divbox>
+	<QfBox>
 		<template #filter>
-			<el-form :inline="true" :model="fromData" ref="forRef">
-				<el-form-item label="商品名" prop="username">
-					<el-input v-model="fromData.username"></el-input>
-				</el-form-item>
-				<el-form-item label="创建于" prop="created_at" v-show="isExpand">
-					<el-date-picker
-						type="datetimerange"
-						range-separator="到"
-						start-placeholder="开始时间"
-						end-placeholder="结束时间"
-						v-model="fromData.created_at"
-					/>
-				</el-form-item>
-
-				<el-form-item>
-					<el-button :icon="Search" type="primary" @click="onsubmit">
-						<div>搜索</div>
-					</el-button>
-					<el-button type="Default" @click="onReset">重置</el-button>
-					<el-button text="true" @click="isExpand = !isExpand">
-						{{ isExpand ? '收起' : '展开' }}
-						<el-icon><ArrowUp v-show="isExpand" /><ArrowDown v-show="!isExpand" /></el-icon>
-					</el-button>
-				</el-form-item>
-			</el-form>
+			<QfForm :labelWidth="60" :formItem="formItem" :formBtn="formBtn" :inline="true">
+			</QfForm>
 		</template>
-		<el-row>
-			<el-button type="danger" :icon="Delete"> 批量删除 </el-button>
-			<el-button type="primary">
-				<el-icon><CirclePlus /></el-icon>
-				添加
-			</el-button>
-		</el-row>
-		<el-table :data="tableDate.list" style="width: 100%" :border="true">
-			<el-table-column type="selection" width="55" fixed="left" align="center" />
-
-			<el-table-column prop="id" label="编号" width="180" sortable align="center" />
-			<el-table-column prop="role_name" label="所属门店" width="100" align="center" />
-			<el-table-column prop="uname" label="封面" width="130" align="center" />
-			<el-table-column prop="mobile" label="标题" width="180" align="center" />
-			<el-table-column prop="mobile" label="库存" width="180" align="center" />
-			<el-table-column prop="mobile" label="市场价" width="180" align="center" />
-			<el-table-column prop="mobile" label="促销价" width="180" align="center" />
-
-			<el-table-column prop="created_at" label="创建于" width="180" align="center" />
-			<el-table-column label="操作" fixed="right" width="260" align="center">
-				<template #default="scope"
-					><el-button type="primary" @click="onuserEdit(scope.row)">
-						<el-icon><EditPen /></el-icon>
-					</el-button>
-
-					<el-button type="danger" @click="onDelete">
-						<el-icon><Delete /></el-icon>
-						删除
-					</el-button></template
-				>
-			</el-table-column>
-		</el-table>
-		<el-pagination
-			v-model:current-page="fromData.pagenum"
-			v-model:page-size="fromData.pagesize"
-			:page-sizes="[100, 200, 300, 400]"
-			:background="true"
-			layout="total, sizes, prev, pager, next, jumper"
-			:total="400"
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-		/>
-	</Divbox>
+		<QfTable :data="tableDate.list" :columns="columns"></QfTable>
+	</QfBox>
 </template>
-<style lang="scss" scoped>
-:deep(.tablebox) {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+<style lang='scss' scoped>
+:deep(.el-input--large) {
+	width: 40%;
 }
-.el-pagination {
-	justify-content: center;
-}
-.demo-pagination-block + .demo-pagination-block {
-	margin-top: 10px;
-}
-.demo-pagination-block .demonstration {
-	margin-bottom: 16px;
-}
-.el-table--fit {
-	margin-top: 15px;
-	margin-bottom: 15px;
+
+:deep(.el-form-item__label) {
+	width: 70px !important;
 }
 </style>
