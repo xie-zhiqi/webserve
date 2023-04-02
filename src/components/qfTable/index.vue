@@ -21,27 +21,18 @@ withDefaults(defineProps<Props>(), {
 <template>
 	<el-table :data="data" :border="border" :row-key="rowKey">
 		<template v-for="(col, colI) in columns" :key="colI">
+
 			<!-- 自定义填充 -->
-			<el-table-column
-				v-if="col.type"
-				:label="col.title"
-				:align="col.align || 'center'"
-				:fixed="col.fixed"
-				:width="col.width"
-				:show-overflow-tooltip="Boolean(col.tooltip)"
-			>
+			<el-table-column v-if="col.type" :label="col.title" :align="col.align || 'center'" :fixed="col.fixed"
+				:width="col.width" :show-overflow-tooltip="Boolean(col.tooltip)">
 				<template #default="scope">
+
 					<!-- switch -->
 					<template v-if="col.type === 'switch'">
-						<el-switch
-							v-model="scope.row[col.prop as string]"
+						<el-switch v-model="scope.row[col.prop as string]"
 							style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-							:active-text="col.payload!.openText"
-							:inactive-text="col.payload?.closeText"
-							inline-prompt
-							:active-value="col.payload!.open"
-							:inactive-value="col.payload!.close"
-						/>
+							:active-text="col.payload!.openText" :inactive-text="col.payload?.closeText" inline-prompt
+							:active-value="col.payload!.open" :inactive-value="col.payload!.close" />
 					</template>
 					<!-- switch -->
 
@@ -53,24 +44,15 @@ withDefaults(defineProps<Props>(), {
 
 					<!-- img -->
 					<template v-if="col.type === 'img'">
-						<img
-							:src="scope.row[col.payload!.src]"
-							:alt="col.payload!.alt"
-							:width="col.payload!.width"
-							:height="col.payload!.height"
-						/>
+						<img :src="scope.row[col.payload!.src]" :alt="col.payload!.alt" :width="col.payload!.width"
+							:height="col.payload!.height" />
 					</template>
 					<!-- img -->
 
 					<!-- operations -->
 					<template v-if="col.type === 'operations'">
-						<el-button
-							v-for="(btn, btnI) in col.payload"
-							:key="btnI"
-							:type="btn.type || 'primary'"
-							:size="btn.size || 'small'"
-							@click="btn.click(scope.row)"
-						>
+						<el-button v-for="(btn, btnI) in col.payload" :key="btnI" :type="btn.type || 'primary'"
+							:size="btn.size || 'small'" @click="btn.click(scope.row)">
 							<span :class="['iconfont', btn.icon]" v-if="btn.icon"></span>
 							{{ btn.content }}
 						</el-button>
@@ -81,15 +63,8 @@ withDefaults(defineProps<Props>(), {
 			<!-- 自定义填充 -->
 
 			<!-- 默认填充 -->
-			<el-table-column
-				v-else
-				:label="col.title"
-				:prop="col.prop"
-				:align="col.align || 'center'"
-				:fixed="col.fixed"
-				:width="col.width"
-				:show-overflow-tooltip="Boolean(col.tooltip)"
-			></el-table-column>
+			<el-table-column v-else :label="col.title" :prop="col.prop" :align="col.align || 'center'" :fixed="col.fixed"
+				:width="col.width" :show-overflow-tooltip="Boolean(col.tooltip)"></el-table-column>
 			<!-- 默认填充 -->
 		</template>
 	</el-table>

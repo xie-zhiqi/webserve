@@ -106,15 +106,12 @@ const options = [
 				<el-input v-model.number="formDare.mobile" placeholder="请输入手机号" />
 			</el-form-item>
 			<el-form-item label="头像" prop="Head">
-				<el-upload
-					class="avatar-uploader"
-					action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-					:show-file-list="false"
-					:on-success="handleAvatarSuccess"
-					:before-upload="beforeAvatarUpload"
-				>
+				<el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+					:show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
 					<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-					<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+					<el-icon v-else class="avatar-uploader-icon">
+						<Plus />
+					</el-icon>
 				</el-upload>
 			</el-form-item>
 			<el-form-item label="所属门店" prop="mobile">
@@ -135,16 +132,23 @@ const options = [
 	height: 178px;
 	display: block;
 }
+
 .card-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+
 .el-button.is-text {
 	border: 1px solid #dddfe5;
 }
+
 .el-input {
 	width: 40%;
 	height: 40px;
+}
+
+.el-input--large {
+	width: 50% !important;
 }
 </style>

@@ -35,7 +35,8 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
-			'~mock': fileURLToPath(new URL('./mock', import.meta.url))
+			'~mock': fileURLToPath(new URL('./mock', import.meta.url)),
+			echarts: 'echarts/dist/echarts.js'
 		}
 	}
 })

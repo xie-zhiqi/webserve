@@ -4,6 +4,8 @@ import { createPinia } from 'pinia'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue'
 import router from './router'
+//echarts
+import * as echarts from 'echarts'
 
 // 组件
 import Divbox from './components/divbox/index.vue'
@@ -12,6 +14,7 @@ import QfCard from './components/qfCard/index.vue'
 import QfForm from './components/qfForm/index.vue'
 import QfTable from './components/qfTable/index.vue'
 import QfUpload from './components/qfUpload/index.vue'
+import WsCard from './/components/wsCard/index.vue'
 // 国际化
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
@@ -20,6 +23,10 @@ import 'element-plus/dist/index.css'
 const app = createApp(App)
 // pinia
 app.use(createPinia())
+// echarts
+app.config.globalProperties.$echarts = echarts
+// 路由
+app.use(router)
 // 全局组件
 app.component('Divbox', Divbox)
 app.component('QfBox', QfBox)
@@ -27,7 +34,8 @@ app.component('QfCard', QfCard)
 app.component('QfForm', QfForm)
 app.component('QfTable', QfTable)
 app.component('QfUpload', QfUpload)
-app.use(router)
+app.component('WsCard', WsCard)
+
 // 国际化
 app.use(ElementPlus, {
 	locale: zhCn
