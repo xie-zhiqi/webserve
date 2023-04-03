@@ -10,6 +10,7 @@ import { Plus } from '@element-plus/icons-vue'
 import router from "@/router/index"
 
 
+
 const ruleFormRef = ref<FormInstance>()
 
 // 正则
@@ -62,7 +63,7 @@ const submitForm = async () => {
 	const { meta: { state, msg } } = await postUserApi(formDate)
 	if (state === 201) {
 		ElMessage.success(msg)
-		router.push('/')
+		router.push("/user")
 
 	} else {
 		ElMessage.error(msg)

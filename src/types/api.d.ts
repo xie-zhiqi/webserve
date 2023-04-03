@@ -1,8 +1,9 @@
 declare namespace API {
-	interface Result {
+	interface Result<T = any> {
 		meta: {
 			state: number
 			msg: string
 		}
+		data: T
 	}
 }

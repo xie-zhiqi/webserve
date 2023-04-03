@@ -1,6 +1,6 @@
 export interface PostRolePayloadType {
 	role_name: string
-	role_desc: string
+	role_describe: string
 }
 
 export interface GetRolePayloadType {

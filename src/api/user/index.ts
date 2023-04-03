@@ -6,7 +6,7 @@ const { get, post } = useAxios()
 
 // 导出
 export const getUserApi = (params: GetUserPayloadType) => {
-	return get<GetUserResType>('/user', params)
+	return get<API.Result<GetUserResType>>('/users/index.jsp', params)
 }
 
 export const postUserApi = (data: PostUserPayloadType) => {

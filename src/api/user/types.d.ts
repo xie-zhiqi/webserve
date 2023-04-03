@@ -8,29 +8,29 @@ export interface PostUserPayloadType {
 export interface GetUserPayloadType {
 	pagenum: number
 	pagesize: number
-	username: string
+	uname: string
+	create_time: string
+	end_time: string
+	// username: string
 	mobile: string
 	role_name: string
-	created_at: string[]
-	updated_at: string[]
+	// created_at: string[]
+	// updated_at: string[]
 }
 
 export interface User {
-	id: number | string
-	role_id: number
-	role_name: string
-	uname: string
+	role_id: null | number
+	role_name: null | string
+	state: string // 1 正常、0 禁用
+	user_id: string
+	email: string
+	username: string
 	mobile: string
-	state: number
-	avatar: string
-	created_at: string
-	updated_at: string
+	create_time: string
 	[k: string]: any
 }
 
 export interface GetUserResType {
-	state?: number
-	msg?: string
 	list: User[]
 	total: number
 }
