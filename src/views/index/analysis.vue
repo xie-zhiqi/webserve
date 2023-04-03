@@ -70,7 +70,7 @@ var option2 = {
 				normal: {
 					position: "inner",
 					formatter: function (param: any) {
-						console.log('饼图', param)
+						// console.log('饼图', param)
 						if (!param.percent) return "";
 						var f = Math.round(param.percent * 10) / 10;
 						var s = f.toString();

@@ -24,6 +24,7 @@ export default defineConfig({
 			resolvers: [ElementPlusResolver()]
 		})
 	],
+
 	css: {
 		preprocessorOptions: {
 			// define global scss variable
@@ -37,6 +38,16 @@ export default defineConfig({
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
 			'~mock': fileURLToPath(new URL('./mock', import.meta.url)),
 			echarts: 'echarts/dist/echarts.js'
+		}
+	},
+	server: {
+		proxy: {
+			'^/fengtuanapi/.*': {
+				target: 'http://kg.zhaodashen.cn/mt/admin',
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/fengtuanapi/, '')
+			}
+			// ..
 		}
 	}
 })

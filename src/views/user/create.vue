@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { ElMessage } from 'element-plus'
+// 类型
 import type { FormInstance, FormRules } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
+// 接口
+import { getUserApi, postUserApi } from "@/api/user/index"
+import { reactive, ref, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
+import router from "@/router/index"
+
 
 const ruleFormRef = ref<FormInstance>()
 
 // 正则
 const checkAge = (rule: any, value: any, callback: any) => {
-	if (/^1[3-9]\d{9}$/.test(value)) {
+	if (/^1[3-9]\d{9}$/.test(value) || value === '') {
 		callback()
 	} else {
 		callback(new Error('请输入正确的手机号'))
@@ -26,7 +31,7 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 	if (value === '') {
 		callback(new Error('请输入密码'))
 		// 测试两次输入不匹配
-		// } else if (value !== formDare.username) {
+		// } else if (value !== formDate.username) {
 		// 	callback(new Error("Two inputs don't match!"))
 	} else {
 		callback()
@@ -39,15 +44,29 @@ const rules = reactive<FormRules>({
 	mobile: [{ validator: checkAge, trigger: 'blur' }]
 })
 // 表单数据
-const formDare = reactive({
+const formDate = reactive({
 	username: '',
-	passworld: '',
+	password: '',
 	mobile: ''
 })
+onMounted(async () => {
+	// const res = await getUserApi(formDate)
+	// console.log(res)
+})
+
+console.log(router);
+
 // 创建按钮提示
-const submitForm = () => {
-	console.log(formDare)
-	ElMessage.success('创建成功')
+const submitForm = async () => {
+	console.log(formDate)
+	const { meta: { state, msg } } = await postUserApi(formDate)
+	if (state === 201) {
+		ElMessage.success(msg)
+		router.push('/')
+
+	} else {
+		ElMessage.error(msg)
+	}
 }
 //重置按钮
 const resetForm = (formEl: FormInstance | undefined) => {
@@ -79,26 +98,24 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 				<el-button class="button" text @click="$router.push('/')">点击</el-button>
 			</div>
 		</template>
-		<el-form ref="ruleFormRef" :model="formDare" status-icon :rules="rules" label-width="120px" class="demo-formDare">
+		<el-form ref="ruleFormRef" :model="formDate" status-icon :rules="rules" label-width="120px" class="demo-formDate">
 			<el-form-item label="用户名" prop="username">
-				<el-input v-model="formDare.username" placeholder="请输入用户名" type="text" autocomplete="off" />
+				<el-input v-model="formDate.username" placeholder="请输入用户名" type="text" autocomplete="off" />
 			</el-form-item>
-			<el-form-item label="密码" prop="passworld">
-				<el-input v-model="formDare.passworld" placeholder="请设置密码" type="password" autocomplete="off" />
+			<el-form-item label="密码" prop="password">
+				<el-input v-model="formDate.password
+				" placeholder="请设置密码" type="password" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="手机号" prop="mobile">
-				<el-input v-model.number="formDare.mobile" placeholder="请输入手机号" />
+				<el-input v-model.number="formDate.mobile" placeholder="请输入手机号" />
 			</el-form-item>
 			<el-form-item label="头像" prop="Head">
-				<el-upload
-					class="avatar-uploader"
-					action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-					:show-file-list="false"
-					:on-success="handleAvatarSuccess"
-					:before-upload="beforeAvatarUpload"
-				>
+				<el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+					:show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
 					<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-					<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+					<el-icon v-else class="avatar-uploader-icon">
+						<Plus />
+					</el-icon>
 				</el-upload>
 			</el-form-item>
 
@@ -115,14 +132,17 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 	height: 178px;
 	display: block;
 }
+
 .card-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+
 .el-button.is-text {
 	border: 1px solid #dddfe5;
 }
+
 .el-input {
 	width: 40%;
 	height: 40px;

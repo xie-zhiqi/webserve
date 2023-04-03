@@ -1,6 +1,19 @@
-<script setup lang='ts'>
-</script>
 <template>
-    <h1>hello</h1>
+    <div class="divbox">
+        <div id="particles-js"></div>
+    </div>
 </template>
-<style lang='scss' scoped></style>
+
+<script lang="ts" setup>
+
+// import { onMounted } from "vue";
+
+</script>
+
+<style lang="scss" scoped>
+.divbox {
+    width: 100%;
+    height: 100%;
+    background-image: url('@/assets/loginBg.jpg');
+}
+</style>
