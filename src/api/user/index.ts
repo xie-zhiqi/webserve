@@ -1,14 +1,28 @@
-import type { GetUserPayloadType, PostUserPayloadType, GetUserResType } from './types'
+import type { GetUserPayloadType, PostUserPayloadType, GetUserResType, DeleteUserapi, PutUserPayloadType } from './types'
 
 import { useAxios } from '@/hooks/useAxios'
 
-const { get, post } = useAxios()
+const { get, post, del, put } = useAxios()
 
-// 导出
-export const getUserApi = (params: GetUserPayloadType) => {
-	return get<API.Result<GetUserResType>>('/users/index.jsp', params)
-}
-
+// 新增用户
 export const postUserApi = (data: PostUserPayloadType) => {
-	return post<API.Result>('/users/create.jsp', data)
+	return post<Api.Result>('/user/create.jsp', data)
 }
+// 用户列表
+export const getUserApi = (params: GetUserPayloadType) => {
+	return get<GetUserResType>('/user/index.jsp', params)
+}
+
+// 删除
+export const deleteUserApi = (params: DeleteUserapi) => {
+	return del<Api.Result>('/user/delete.jsp', params)
+}
+// 修改
+// export const putUserApi = (data: any) => {
+// 	return put<Api.Result>('/user/update.jsp', data)
+// }
+
+// // 修改
+// export const putUserStateApi = (data: PutUserStatePayloadType) => {
+// 	return put<API.Result>('/user/state.jsp', data)
+// }

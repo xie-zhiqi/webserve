@@ -1,73 +1,77 @@
 <script setup lang="ts">
 // 类型
 import type { FormInstance, FormRules } from 'element-plus'
-import type { UploadProps } from 'element-plus'
 // 接口
-import { getUserApi, postUserApi } from "@/api/user/index"
-import { reactive, ref, onMounted } from 'vue'
+import { postUserApi } from "@/api/user/index"
+import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
 import router from "@/router/index"
 
 
 
-const ruleFormRef = ref<FormInstance>()
+const ruleFormRef = ref()
 
-// 正则
-const checkAge = (rule: any, value: any, callback: any) => {
-	if (/^1[3-9]\d{9}$/.test(value) || value === '') {
+
+// 表单验证
+const checkMobile = (rule: any, value: string, callback: Function) => {
+	if (/^1\d{10}$/.test(value) || value === '') {
 		callback()
 	} else {
-		callback(new Error('请输入正确的手机号'))
+		callback(new Error('请输入正确手机格式'))
 	}
 }
-const validatePass = (rule: any, value: any, callback: any) => {
-	if (value === '') {
-		callback(new Error('请输入用户名'))
-	} else {
-		callback()
-	}
-}
-const validatePass2 = (rule: any, value: any, callback: any) => {
-	if (value === '') {
-		callback(new Error('请输入密码'))
-		// 测试两次输入不匹配
-		// } else if (value !== formDate.username) {
-		// 	callback(new Error("Two inputs don't match!"))
-	} else {
-		callback()
-	}
-}
-// 表单验证规则
-const rules = reactive<FormRules>({
-	username: [{ validator: validatePass, trigger: 'blur' }],
-	passworld: [{ validator: validatePass2, trigger: 'blur' }],
-	mobile: [{ validator: checkAge, trigger: 'blur' }]
+const formRules = reactive<FormRules>({
+	// 键是要验证的模型数据: [
+	// 	数组中是一个个对象  一个个验证规则
+	// 	{ required: true, message: 'xx必须', trigger:'blur' },
+	// 	{ min: 2,  max: 10, message: 'xx至少2-10个字符', trigger:'blur' },
+	// 	{validator:checkusername,, trigger:'blur' }
+	// ]
+	username: [
+		{ required: true, message: '用户名必须', trigger: 'blur' },
+		{ min: 2, max: 8, message: '用户名至少2~8个字符', trigger: 'blur' }
+	],
+	password: [
+		{ required: true, message: '密码必须', trigger: 'blur' },
+		{ min: 6, max: 18, message: '密码至少6~18个字符', trigger: 'blur' }
+	],
+	mobile: [
+		// { required: true, message: '手机号必须', trigger: 'blur' },
+		{ validator: checkMobile, trigger: 'blur' }
+	]
 })
 // 表单数据
 const formDate = reactive({
 	username: '',
 	password: '',
-	mobile: ''
+	mobile: '',
+	avatar: ''
 })
-onMounted(async () => {
-	// const res = await getUserApi(formDate)
-	// console.log(res)
-})
-
-console.log(router);
 
 // 创建按钮提示
-const submitForm = async () => {
-	console.log(formDate)
-	const { meta: { state, msg } } = await postUserApi(formDate)
-	if (state === 201) {
-		ElMessage.success(msg)
-		router.push("/user")
+const submitForm = () => {
+	// console.log(ruleFormRef.value)
 
-	} else {
-		ElMessage.error(msg)
-	}
+	// const { state, msg } = await postUserApi(formDate)
+	// if (state === 201) {
+	// 	ElMessage.success(msg)
+	// 	router.push("/user")
+	// }
+	ruleFormRef.value.validate(async (isSuccess: boolean) => {
+		// 获取到图片地址
+		if (isSuccess) {
+			// console.log(ruleFormRef.value.temp)
+			console.log(uploadRef.value.temp)
+			formDate.avatar = uploadRef.value.temp
+			const { state, msg } = await postUserApi(formDate)
+			if (state === 201) {
+				ElMessage.success(msg)
+				router.push('/user')
+			} else {
+				ElMessage.error(msg)
+			}
+		}
+	})
 }
 //重置按钮
 const resetForm = (formEl: FormInstance | undefined) => {
@@ -76,20 +80,9 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 
 // 图片上传
-const imageUrl = ref('')
-const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
-	imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-}
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-	if (rawFile.type !== 'image/jpeg') {
-		ElMessage.error('Avatar picture must be JPG format!')
-		return false
-	} else if (rawFile.size / 1024 / 1024 > 2) {
-		ElMessage.error('Avatar picture size can not exceed 2MB!')
-		return false
-	}
-	return true
-}
+const uploadRef = ref()
+
+
 </script>
 <template>
 	<el-card class="box-card">
@@ -99,25 +92,24 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 				<el-button class="button" text @click="$router.push('/')">点击</el-button>
 			</div>
 		</template>
-		<el-form ref="ruleFormRef" :model="formDate" status-icon :rules="rules" label-width="120px" class="demo-formDate">
+		<el-form ref="ruleFormRef" :model="formDate" status-icon :rules="formRules" label-width="120px"
+			class="demo-formDate">
 			<el-form-item label="用户名" prop="username">
 				<el-input v-model="formDate.username" placeholder="请输入用户名" type="text" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="密码" prop="password">
 				<el-input v-model="formDate.password
-				" placeholder="请设置密码" type="password" autocomplete="off" />
+				" placeholder="请设置密码" type="password" />
 			</el-form-item>
 			<el-form-item label="手机号" prop="mobile">
 				<el-input v-model.number="formDate.mobile" placeholder="请输入手机号" />
 			</el-form-item>
 			<el-form-item label="头像" prop="Head">
-				<el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-					:show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-					<el-icon v-else class="avatar-uploader-icon">
-						<Plus />
-					</el-icon>
-				</el-upload>
+
+				<!-- 第一种方式通过ref传递参数 -->
+				<!-- <QfUpload ref="uploadRef"></QfUpload> -->
+				<!-- 第二种方式通过emit传递参数 -->
+				<QfUpload @update:temp="(data: string) => { formDate.avatar = data }"></QfUpload>
 			</el-form-item>
 
 			<el-form-item>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// import { putUserApi } from "@/api/user"
+
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
@@ -6,6 +8,9 @@ import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 
 const ruleFormRef = ref<FormInstance>()
+
+// 属性
+
 
 // 正则
 const checkAge = (rule: any, value: any, callback: any) => {
@@ -40,7 +45,7 @@ const rules = reactive<FormRules>({
 })
 // 表单数据
 const formDate = reactive({
-	uname: '',
+	username: '',
 	passworld: '',
 	mobile: ''
 })
@@ -49,6 +54,8 @@ const submitForm = () => {
 	console.log(formDate)
 	ElMessage.success('创建成功')
 	state.value = false
+
+
 }
 //重置按钮
 const resetForm = () => {
@@ -84,17 +91,10 @@ defineExpose({
 				<span>用户编辑</span>
 			</div>
 		</template>
-		<el-form
-			v-if="state"
-			ref="ruleFormRef"
-			:model="formDate"
-			status-icon
-			:rules="rules"
-			label-width="120px"
-			class="demo-formDate"
-		>
-			<el-form-item label="用户名" prop="uname">
-				<el-input v-model="formDate.uname" placeholder="请输入用户名" type="text" autocomplete="off" />
+		<el-form v-if="state" ref="ruleFormRef" :model="formDate" status-icon :rules="rules" label-width="120px"
+			class="demo-formDate">
+			<el-form-item label="用户名" prop="username">
+				<el-input v-model="formDate.username" placeholder="请输入用户名" type="text" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="密码" prop="passworld">
 				<el-input v-model="formDate.passworld" placeholder="请设置密码" type="password" autocomplete="off" />
@@ -103,15 +103,12 @@ defineExpose({
 				<el-input v-model.number="formDate.mobile" placeholder="请输入手机号" />
 			</el-form-item>
 			<el-form-item label="头像" prop="Head">
-				<el-upload
-					class="avatar-uploader"
-					action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-					:show-file-list="false"
-					:on-success="handleAvatarSuccess"
-					:before-upload="beforeAvatarUpload"
-				>
+				<el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+					:show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
 					<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-					<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+					<el-icon v-else class="avatar-uploader-icon">
+						<Plus />
+					</el-icon>
 				</el-upload>
 			</el-form-item>
 
@@ -128,18 +125,22 @@ defineExpose({
 	height: 178px;
 	display: block;
 }
+
 .el-input[data-v-f3899914] {
 	width: 70%;
 	height: 40px;
 }
+
 .card-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+
 .el-button.is-text {
 	border: 1px solid #dddfe5;
 }
+
 .el-input {
 	width: 40%;
 	height: 40px;

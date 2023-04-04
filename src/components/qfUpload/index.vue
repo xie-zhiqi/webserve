@@ -1,16 +1,3 @@
-<template>
-	<el-upload
-		class="avatar-uploader"
-		action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-		:show-file-list="false"
-		:on-success="handleAvatarSuccess"
-		:before-upload="beforeAvatarUpload"
-	>
-		<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-		<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-	</el-upload>
-</template>
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
@@ -20,7 +7,24 @@ import type { UploadProps } from 'element-plus'
 
 const imageUrl = ref('')
 
+// 存储图片数据
+// const temp = ref("")
+// 把图片数据暴露出去
+// defineExpose({
+// 	temp
+// })
+
+// 第二种写法
+const emit = defineEmits(['update:temp'])
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
+	console.log(response);
+	// 判断是否上传成功
+	// 上传成功存储图片数据
+	if (response.state === 201) {
+		// 通过ref传递参数
+		// temp.value = response.img
+		emit('update:temp', response.img)
+	}
 	imageUrl.value = URL.createObjectURL(uploadFile.raw!)
 }
 
@@ -35,7 +39,16 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 	return true
 }
 </script>
+<template>
+	<el-upload class="avatar-uploader" action="http://kg.zhaodashen.cn/mt/admin/upload.jsp" :show-file-list="false"
+		:on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
 
+		<img v-if="imageUrl" :src="imageUrl" class="avatar" />
+		<el-icon v-else class="avatar-uploader-icon">
+			<Plus />
+		</el-icon>
+	</el-upload>
+</template>
 <style scoped>
 .avatar-uploader .avatar {
 	width: 178px;
