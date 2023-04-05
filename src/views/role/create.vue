@@ -36,11 +36,11 @@ const rules = reactive<FormRules>({
 // 表单数据
 const formDate = reactive<PostRolePayloadType>({
 	role_name: '',
-	role_describe: '',
+	role_desc: '',
 })
 // 创建按钮提示
 const submitForm = async () => {
-	const { meta: { msg, state } } = await postRoleApi(formDate)
+	const { msg, state } = await postRoleApi(formDate)
 	// const res = await postRoleApi(formDate)
 	// console.log(res);
 	if (state === 201) {
@@ -71,7 +71,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 				<el-input v-model="formDate.role_name" placeholder="请输入角色名" type="text" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="角色描述" prop="role_describe">
-				<el-input v-model="formDate.role_describe" placeholder="角色描述" type="password" autocomplete="off" />
+				<el-input v-model="formDate.role_desc" placeholder="角色描述" type="text" autocomplete="off" />
 			</el-form-item>
 
 			<el-form-item>

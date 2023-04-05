@@ -8,22 +8,22 @@ import type { UploadProps } from 'element-plus'
 const imageUrl = ref('')
 
 // 存储图片数据
-// const temp = ref("")
+const temp = ref("")
 // 把图片数据暴露出去
-// defineExpose({
-// 	temp
-// })
+defineExpose({
+	temp
+})
 
 // 第二种写法
-const emit = defineEmits(['update:temp'])
+// const emit = defineEmits(['update:temp'])
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
 	console.log(response);
 	// 判断是否上传成功
 	// 上传成功存储图片数据
 	if (response.state === 201) {
 		// 通过ref传递参数
-		// temp.value = response.img
-		emit('update:temp', response.img)
+		temp.value = response.img
+		// emit('update:temp', response.img)
 	}
 	imageUrl.value = URL.createObjectURL(uploadFile.raw!)
 }

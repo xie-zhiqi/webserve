@@ -15,6 +15,7 @@ export interface GetUserPayloadType {
 	updated_at: string
 	created_at_temp: null | string[]
 	updated_at_temp: null | string[]
+	user_id: string
 }
 
 export interface User {
@@ -57,4 +58,20 @@ export interface PutUserPayloadType {
 	username: string
 	password: string
 	mobile: string
+}
+
+// 编辑
+// export interface
+export interface PutUserPayloadType {
+	user_id: number
+	username: string
+	password: string
+	mobile: string
+}
+
+// 状态切换
+
+export interface PutUserStatePayloadType {
+	user_id: number | string
+	state: number
 }

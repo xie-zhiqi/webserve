@@ -43,54 +43,48 @@ const onuserJuese = (value: any) => {
 
 			<el-table-column prop="state" label="组件缓存" width="180" align="center">
 				<template #default="scope">
-					<el-switch
-						v-model="scope.row.state"
-						class="ml-2"
-						inline-prompt
-						style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-						active-text="未冻结"
-						inactive-text="已冻结"
-						:active-value="0"
-						:inactive-value="1"
-					/>
+					<el-switch v-model="scope.row.state" class="ml-2" inline-prompt
+						style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949" active-text="未冻结"
+						inactive-text="已冻结" :active-value="0" :inactive-value="1" />
 				</template>
 			</el-table-column>
 			<el-table-column prop="mobile" label="组件路径" width="180" align="center" />
 
 			<el-table-column label="操作" width="260" align="center">
-				<template #default="scope"
-					><el-button type="primary" @click="onuserEdit(scope.row)">
-						<el-icon><EditPen /></el-icon>
+				<template #default="scope"><el-button type="primary" @click="onuserEdit(scope.row)">
+						<el-icon>
+							<EditPen />
+						</el-icon>
 					</el-button>
 					<el-button type="success" @click="onuserJuese(scope.row)">分配角色</el-button>
 					<el-button type="danger" @click="onDelete">
-						<el-icon><Delete /></el-icon>
+						<el-icon>
+							<Delete />
+						</el-icon>
 						删除
-					</el-button></template
-				>
+					</el-button></template>
 			</el-table-column>
 		</el-table>
 	</Divbox>
 </template>
 <style lang="scss" scoped>
-:deep(.tablebox) {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
 .el-pagination {
 	justify-content: center;
 }
-.demo-pagination-block + .demo-pagination-block {
+
+.demo-pagination-block+.demo-pagination-block {
 	margin-top: 10px;
 }
+
 .demo-pagination-block .demonstration {
 	margin-bottom: 16px;
 }
+
 .el-table--fit {
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
+
 :deep(.filterbox) {
 	display: none;
 }

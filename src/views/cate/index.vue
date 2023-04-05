@@ -74,12 +74,6 @@ const onuserEdit = (vlaue: any) => {
 	</Divbox>
 </template>
 <style lang="scss" scoped>
-:deep(.tablebox) {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
 .el-pagination {
 	justify-content: center;
 }

@@ -1,4 +1,11 @@
-import type { GetUserPayloadType, PostUserPayloadType, GetUserResType, DeleteUserapi, PutUserPayloadType } from './types'
+import type {
+	GetUserPayloadType,
+	PostUserPayloadType,
+	GetUserResType,
+	DeleteUserapi,
+	PutUserPayloadType,
+	PutUserStatePayloadType
+} from './types'
 
 import { useAxios } from '@/hooks/useAxios'
 
@@ -18,11 +25,13 @@ export const deleteUserApi = (params: DeleteUserapi) => {
 	return del<Api.Result>('/user/delete.jsp', params)
 }
 // 修改
-// export const putUserApi = (data: any) => {
-// 	return put<Api.Result>('/user/update.jsp', data)
-// }
+export const putUserApi = (data: PutUserPayloadType) => {
+	return put<Api.Result>('/user/update.jsp', data)
+}
 
 // // 修改
-// export const putUserStateApi = (data: PutUserStatePayloadType) => {
-// 	return put<API.Result>('/user/state.jsp', data)
-// }
+export const putUserStateApi = (data: PutUserStatePayloadType) => {
+	return put<Api.Result>('/user/state.jsp', data)
+}
+
+// http://kg.zhaodashen.cn/mt/admin/user/state.jsp

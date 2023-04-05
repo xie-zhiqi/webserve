@@ -60,8 +60,8 @@ const submitForm = () => {
 	ruleFormRef.value.validate(async (isSuccess: boolean) => {
 		// 获取到图片地址
 		if (isSuccess) {
+
 			// console.log(ruleFormRef.value.temp)
-			console.log(uploadRef.value.temp)
 			formDate.avatar = uploadRef.value.temp
 			const { state, msg } = await postUserApi(formDate)
 			if (state === 201) {
@@ -107,9 +107,9 @@ const uploadRef = ref()
 			<el-form-item label="头像" prop="Head">
 
 				<!-- 第一种方式通过ref传递参数 -->
-				<!-- <QfUpload ref="uploadRef"></QfUpload> -->
+				<QfUpload ref="uploadRef"></QfUpload>
 				<!-- 第二种方式通过emit传递参数 -->
-				<QfUpload @update:temp="(data: string) => { formDate.avatar = data }"></QfUpload>
+				<!-- <QfUpload @update:temp="(data: string) => { formDate.avatar = data }"></QfUpload> -->
 			</el-form-item>
 
 			<el-form-item>

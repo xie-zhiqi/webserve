@@ -1,10 +1,9 @@
 <script setup lang="ts">
 // 接口 模块 hook  组件
-import { deleteUserApi } from "@/api/user/index"
-
 import type { GetUserPayloadType, GetUserResType, User } from "@/api/user/types"
+
+import { getUserApi, putUserStateApi, deleteUserApi } from "@/api/user"
 // import mock from '~mock/user'
-import { getUserApi } from "@/api/user"
 import { useConfirm } from '@/hooks/useConfirm'
 import { ArrowDown, Search, Delete } from '@element-plus/icons-vue'
 import { reactive, ref, onMounted, watchEffect } from 'vue'
@@ -12,13 +11,15 @@ import wofDate from "webopenfather-date"
 // 组件
 import UserEdit from './component/userEdit.vue'
 import UserJuese from './component/userJuese.vue'
+import { ElMessage } from "element-plus"
 
 // 表单数据
 const formDate = reactive<GetUserPayloadType>({
 	pagenum: 1,
-	pagesize: 10,
+	pagesize: 20,
 	username: '',
 	mobile: '',
+	user_id: '',
 	role_name: '',
 	created_at: "",
 	updated_at: "",
@@ -54,6 +55,34 @@ const onReset = () => {
 	forRef.value.resetFields()
 }
 
+watchEffect(() => {
+
+	// if (formDate.created_at_temp) {
+	// 	formDate.created_at = wofDate.formatDate(formDate.created_at_temp[0], 'yyyy-MM-dd hh:mm:ss') + ',' + wofDate.formatDate(formDate.created_at_temp[1], 'yyyy-MM-dd hh:mm:ss')
+	// } else {
+	// 	formDate.created_at = ''
+	// }
+	if (formDate.created_at_temp) {
+		const temp1 = formDate.created_at = wofDate.format('Y-m-d H:i:s', formDate.created_at_temp[0])
+		const temp2 = formDate.created_at = wofDate.format('Y-m-d H:i:s', formDate.created_at_temp[1])
+		formDate.created_at = `${temp1},${temp2}`
+		console.log(formDate.created_at)
+	} else {
+		formDate.created_at = ''
+	}
+	onTableDate()
+})
+watchEffect(() => {
+	if (formDate.updated_at_temp) {
+		const temp1 = formDate.created_at = wofDate.format('Y-m-d H:i:s', formDate.updated_at_temp[0])
+		const temp2 = formDate.created_at = wofDate.format('Y-m-d H:i:s', formDate.updated_at_temp[1])
+		formDate.updated_at = `${temp1},${temp2}`
+		console.log(formDate.updated_at)
+	} else {
+		formDate.updated_at = ''
+	}
+	onTableDate()
+})
 // 分页
 const handleSizeChange = (val: number) => {
 	// console.log(`${val} items per page`)
@@ -103,8 +132,8 @@ const onDeletes = () => {
 const userEdit = ref()
 // 获取当前行的数据，传递给编辑组件
 const onuserEdit = (vlaue: any) => {
-
 	userEdit.value.state = true
+	userEdit.value.formDate.user_id = vlaue.user_id
 	userEdit.value.formDate.username = vlaue.username
 	userEdit.value.formDate.mobile = vlaue.mobile
 }
@@ -117,43 +146,17 @@ const onuserJuese = (value: any) => {
 	userJuese.value.formDate.role_name = value.role_name
 }
 
-// 监听创建于变化传递给后端
-// watch(() => formDate.created_at_temp, (val => {
-// 	console.log
+// 切换用户状态处理函数
+const onChangezhuant = async (val: any) => {
+	console.log('切换用户状态', val);
+	const { state, msg } = await putUserStateApi(val)
 
-watchEffect(() => {
+	ElMessage({
+		message: msg,
+		type: state ? 'success' : 'error'
+	})
 
-	// if (formDate.created_at_temp) {
-	// 	formDate.created_at = wofDate.formatDate(formDate.created_at_temp[0], 'yyyy-MM-dd hh:mm:ss') + ',' + wofDate.formatDate(formDate.created_at_temp[1], 'yyyy-MM-dd hh:mm:ss')
-	// } else {
-	// 	formDate.created_at = ''
-	// }
-	if (formDate.created_at_temp) {
-		const temp1 = formDate.created_at = wofDate.format('Y-m-d H:i:s', formDate.created_at_temp[0])
-		const temp2 = formDate.created_at = wofDate.format('Y-m-d H:i:s', formDate.created_at_temp[1])
-		formDate.created_at = `${temp1},${temp2}`
-		console.log(formDate.created_at)
-	} else {
-		formDate.created_at = ''
-	}
-	onTableDate()
-})
-watchEffect(() => {
-	if (formDate.updated_at_temp) {
-		const temp1 = formDate.created_at = wofDate.format('Y-m-d H:i:s', formDate.updated_at_temp[0])
-		const temp2 = formDate.created_at = wofDate.format('Y-m-d H:i:s', formDate.updated_at_temp[1])
-		formDate.updated_at = `${temp1},${temp2}`
-		console.log(formDate.updated_at)
-	} else {
-		formDate.updated_at = ''
-	}
-	onTableDate()
-})
-
-// const ondata = (val: any) => {
-// 	console.log(val)
-// }
-
+}
 </script>
 <template>
 	<UserEdit ref="userEdit" :onTableDate="onTableDate"></UserEdit>
@@ -214,17 +217,12 @@ watchEffect(() => {
 					<img :src="scope.row.avatar" width="60" height="60" />
 				</template>
 			</el-table-column>
-			<!-- <el-table-column width="120" label="用户头像" align="center">
-											<template #default="scope">
-												<img :src="scope.row.avatar" alt="">
-											</template>
-										</el-table-column> -->
 			<el-table-column prop="mobile" label="手机号" width="120" align="center" />
 			<el-table-column prop="state" label="登录" width="180" align="center">
 				<template #default="scope">
-					<el-switch v-model="scope.row.state" class="ml-2" inline-prompt
-						style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949" active-text="已冻结"
-						inactive-text="未冻结" active-value="1" inactive-value="0" />
+					<el-switch v-model="scope.row.state" class="ml-2" inline-prompt @change="onChangezhuant(scope.row)"
+						style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949" active-text="未冻结"
+						inactive-text="已冻结" active-value="1" inactive-value="0" />
 				</template>
 			</el-table-column>
 			<el-table-column prop="created_at" label="创建于" width="180" align="center" />
@@ -251,12 +249,6 @@ watchEffect(() => {
 	</Divbox>
 </template>
 <style lang="scss" scoped>
-:deep(.tablebox) {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
 .el-pagination {
 	justify-content: center;
 }

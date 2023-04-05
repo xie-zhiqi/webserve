@@ -23,12 +23,7 @@ import 'element-plus/dist/index.css'
 const app = createApp(App)
 
 // 粒子特效
-import VueParticles from 'vue-particles'
-app.use(VueParticles)
-
-// 粒子特效
 import Particles from 'particles.vue3'
-// 粒子特效
 app.use(Particles)
 // pinia
 app.use(createPinia())

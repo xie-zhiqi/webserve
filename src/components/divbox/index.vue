@@ -14,23 +14,25 @@
 	display: flex;
 	height: 100%;
 	flex-direction: column;
+
 	// background-color: red;
 	.filterbox {
 		margin-bottom: 16px;
 		background-color: #fff;
 		padding: 16px;
 	}
+
 	.tablebox {
 		flex: 1;
 		padding: 16px;
 		background-color: #fff;
 		overflow-y: scroll;
 		overflow-x: scroll;
-		display: flex;
-		flex-direction: column;
+
+		// display: flex;
+		// flex-direction: column;
 		.el-table {
 			flex: 1;
 		}
 	}
-}
-</style>
+}</style>

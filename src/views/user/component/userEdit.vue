@@ -1,20 +1,18 @@
 <script setup lang="ts">
-// import { putUserApi } from "@/api/user"
+import { putUserApi } from "@/api/user"
 
+import type { FormInstance, FormRules } from 'element-plus'
+import type { PutUserPayloadType } from "@/api/user/types"
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
-import type { UploadProps } from 'element-plus'
 
-const ruleFormRef = ref<FormInstance>()
 
 // 属性
 
 
 // 正则
 const checkAge = (rule: any, value: any, callback: any) => {
-	if (/^1[3-9]\d{9}$/.test(value)) {
+	if (/^1[3-9]\d{9}$/.test(value) || value === '') {
 		callback()
 	} else {
 		callback(new Error('请输入正确的手机号'))
@@ -27,61 +25,63 @@ const validatePass = (rule: any, value: any, callback: any) => {
 		callback()
 	}
 }
-const validatePass2 = (rule: any, value: any, callback: any) => {
-	if (value === '') {
-		callback(new Error('请输入密码'))
-		// 测试两次输入不匹配
-		// } else if (value !== formDate.username) {
-		// 	callback(new Error("Two inputs don't match!"))
-	} else {
-		callback()
-	}
-}
+
 // 表单验证规则
 const rules = reactive<FormRules>({
 	username: [{ validator: validatePass, trigger: 'blur' }],
-	passworld: [{ validator: validatePass2, trigger: 'blur' }],
+	password: [
+		// 编辑：密码不写则是默认，写了就必须是6-18个然后更新
+		// { required: true, message: '密码必须', trigger: 'blur' },
+		{ min: 6, max: 18, message: '密码至少6~18个字符', trigger: 'blur' }
+	],
 	mobile: [{ validator: checkAge, trigger: 'blur' }]
 })
 // 表单数据
-const formDate = reactive({
+const formDate = reactive<PutUserPayloadType>({
+	user_id: 0,
 	username: '',
-	passworld: '',
+	password: '',
 	mobile: ''
 })
+
+
+// 获取表单数据
+const ruleFormRef = ref<FormInstance>()
 // 创建按钮提示
 const submitForm = () => {
-	console.log(formDate)
-	ElMessage.success('创建成功')
-	state.value = false
+	ruleFormRef.value?.validate(async (valid: boolean) => {
+		if (valid) {
+			const res = await putUserApi(formDate)
+			console.log(res);
+			props.onTableDate()
+			state.value = false
+			ElMessage.success('创建成功')
 
-
+		} else {
+			return false
+		}
+	})
 }
+
 //重置按钮
 const resetForm = () => {
 	ruleFormRef.value?.resetFields()
 }
 
-// 图片上传
-const imageUrl = ref('')
-const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
-	imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-}
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-	if (rawFile.type !== 'image/jpeg') {
-		ElMessage.error('Avatar picture must be JPG format!')
-		return false
-	} else if (rawFile.size / 1024 / 1024 > 2) {
-		ElMessage.error('Avatar picture size can not exceed 2MB!')
-		return false
-	}
-	return true
-}
 
+// 控制显示隐藏
 const state = ref(false)
 defineExpose({
 	state,
 	formDate
+})
+
+// 接收父组件传递的数据
+const props = defineProps({
+	onTableDate: {
+		type: Function,
+		required: true
+	}
 })
 </script>
 <template>
@@ -97,21 +97,11 @@ defineExpose({
 				<el-input v-model="formDate.username" placeholder="请输入用户名" type="text" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="密码" prop="passworld">
-				<el-input v-model="formDate.passworld" placeholder="请设置密码" type="password" autocomplete="off" />
+				<el-input v-model="formDate.password" placeholder="请设置密码" type="password" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="手机号" prop="mobile">
 				<el-input v-model.number="formDate.mobile" placeholder="请输入手机号" />
 			</el-form-item>
-			<el-form-item label="头像" prop="Head">
-				<el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-					:show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-					<el-icon v-else class="avatar-uploader-icon">
-						<Plus />
-					</el-icon>
-				</el-upload>
-			</el-form-item>
-
 			<el-form-item>
 				<el-button type="primary" @click="submitForm">立即创建</el-button>
 				<el-button @click="resetForm">重置</el-button>
