@@ -132,7 +132,7 @@ const props = defineProps({
 }
 
 .el-input {
-	width: 40%;
+	width: 55%;
 	height: 40px;
 }
 </style>

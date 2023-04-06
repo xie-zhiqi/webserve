@@ -1930,9 +1930,9 @@ particles.js@^2.0.0:
   resolved "https://registry.npmmirror.com/particles.js/-/particles.js-2.0.0.tgz"
   integrity sha512-8e0JIqkRbMMPlFBnF9f+92hX1s07jdkd3tqB8uHE9L+cwGGjIYjQM7QLgt0FQ5MZp6SFFYYDm/Y48pqK3ZvJOQ==
 
-particles.vue3@^2.9.3:
+particles.vue3@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/particles.vue3/-/particles.vue3-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/particles.vue3/-/particles.vue3-2.9.3.tgz#3fa7297ab6beef4000ecd72d226f7969a0f53f63"
   integrity sha512-16D591jOcnl+9gjFQoyqh/suy9qihU2R6bqiMnV+i6r7WUyLBjNx+K2GPN9syDAS2Wc+DhBAbaE6JqnKl+etYA==
   dependencies:
     tsparticles-engine "^2.9.3"
@@ -2358,7 +2358,12 @@ tslib@^1.8.1:
   resolved "https://registry.npmmirror.com/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tsparticles-engine@^2.9.3:
+tsparticles-engine@2.8.0:
+  version "2.8.0"
+  resolved "https://registry.npmmirror.com/tsparticles-engine/-/tsparticles-engine-2.8.0.tgz#8297addc8f97f8789d982899388db367b89e7ea6"
+  integrity sha512-r0cWKxefQkQCzU+RRG/82VQnl/fAkws27EuYIOKcnHiYsWnZYcX8iPiQs/qgDajP0haBSn4Vui8UbTCAwSFniw==
+
+tsparticles-engine@^2.8.0, tsparticles-engine@^2.9.3:
   version "2.9.3"
   resolved "https://registry.npmmirror.com/tsparticles-engine/-/tsparticles-engine-2.9.3.tgz"
   integrity sha512-iAD8LyRH//kx10fDMm6AfQV6dRHs1ZacUUHqVwfutcqM4x1IV2ygpjk0X87LKCnBxYeIMG78+tlxXpnpwUccOg==
@@ -2433,9 +2438,9 @@ tsparticles-interaction-external-slow@^2.9.3:
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-interaction-external-trail@^2.9.3:
+tsparticles-interaction-external-trail@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-interaction-external-trail/-/tsparticles-interaction-external-trail-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-interaction-external-trail/-/tsparticles-interaction-external-trail-2.9.3.tgz#406c3b1c95c4e58a81d38302d672e3d73335a8c1"
   integrity sha512-BxmxfKxx7giWpp8ZWgfcO9MBI/BAYkhwr2QY3BGdk59jpp90Zxe7jNRSU5kMyhxOmD088F0B9lBEsu3L2G+VaQ==
   dependencies:
     tsparticles-engine "^2.9.3"
@@ -2482,9 +2487,9 @@ tsparticles-particles.js@^2.9.3:
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-plugin-absorbers@^2.9.3:
+tsparticles-plugin-absorbers@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-plugin-absorbers/-/tsparticles-plugin-absorbers-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-plugin-absorbers/-/tsparticles-plugin-absorbers-2.9.3.tgz#98707c667f3f693373210d056859af0f4318ecd3"
   integrity sha512-K4AmBqEWqcC8aXc+TEmv2GHIlZ+b1jAPtuYr30j1rZbaMK7kbvjvVmZbDNM2RJyuBqkuAoV/e3DAOuH5YpBs7g==
   dependencies:
     tsparticles-engine "^2.9.3"
@@ -2496,9 +2501,9 @@ tsparticles-plugin-easing-quad@^2.9.3:
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-plugin-emitters@^2.9.3:
+tsparticles-plugin-emitters@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-plugin-emitters/-/tsparticles-plugin-emitters-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-plugin-emitters/-/tsparticles-plugin-emitters-2.9.3.tgz#55f994eb3c8918d33b71d7a0f27869d6e09e0fa7"
   integrity sha512-G0rs7lL9xjbFGkWr+XDsDpyghTjiHq7oPAZyUe0c/3p0JETwQgZ63/egluYU1p3uWJj34KjgjHD3GZqjyfI95Q==
   dependencies:
     tsparticles-engine "^2.9.3"
@@ -2552,9 +2557,9 @@ tsparticles-shape-text@^2.9.3:
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-slim@^2.9.3:
+tsparticles-slim@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-slim/-/tsparticles-slim-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-slim/-/tsparticles-slim-2.9.3.tgz#45db3b8ef50f4cbf20aff2e11c481c3ec96b4a5d"
   integrity sha512-lq8qePcf/lQ5HezR/gpIDn4UJUp8G+33MB7GkhpwmpQpJyoteT5nlXkLxgaedGZFkZAoTKINuU9NUW1Ci6MX4w==
   dependencies:
     tsparticles-engine "^2.9.3"
@@ -2604,9 +2609,9 @@ tsparticles-updater-color@^2.9.3:
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-updater-destroy@^2.9.3:
+tsparticles-updater-destroy@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-updater-destroy/-/tsparticles-updater-destroy-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-updater-destroy/-/tsparticles-updater-destroy-2.9.3.tgz#0dc8fd03bbfe75c17ec451430da8e7a1459eadce"
   integrity sha512-SRgFISarsLpNz/gnMvkCFV2uITpwkUX5Fva34DVWHK6glY0053x2uvtUQluwHfp6DIJAueRMRhZ0dmzVltdOLw==
   dependencies:
     tsparticles-engine "^2.9.3"
@@ -2632,9 +2637,9 @@ tsparticles-updater-out-modes@^2.9.3:
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-updater-roll@^2.9.3:
+tsparticles-updater-roll@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-updater-roll/-/tsparticles-updater-roll-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-updater-roll/-/tsparticles-updater-roll-2.9.3.tgz#435e11d6dcec4fe70591b5718304642386013981"
   integrity sha512-I/9vB1wA3RKwfeRPlw7nrxUW8uxcajwba+gxFEcIDx2C+OA2UVIuGzOQE59O2sppqLqwrcLOm3ayTt5se1qbpw==
   dependencies:
     tsparticles-engine "^2.9.3"
@@ -2653,42 +2658,42 @@ tsparticles-updater-stroke-color@^2.9.3:
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-updater-tilt@^2.9.3:
+tsparticles-updater-tilt@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-updater-tilt/-/tsparticles-updater-tilt-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-updater-tilt/-/tsparticles-updater-tilt-2.9.3.tgz#0a8167816e1a354f64d64bbfb2f626acd6725d65"
   integrity sha512-x1EDyvBfqgBh1021lohf2shn+V6U9WhMasGD+fKugwRxNZ0nAe5DK0wop/26L2MUIb+AbIg2sXPdxuv1zE7G7w==
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-updater-twinkle@^2.9.3:
+tsparticles-updater-twinkle@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-updater-twinkle/-/tsparticles-updater-twinkle-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-updater-twinkle/-/tsparticles-updater-twinkle-2.9.3.tgz#d302d539c3d296c2ec66536b4d02def4c525cee9"
   integrity sha512-IHxKAYBRpBiOBtU/8Wh1wv8wCQa2dC5K+LPjDw3JTyzPmPnskjGiHXiPyZTbHPdAqrSQ29jJCfJwn0HAIqEjwQ==
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles-updater-wobble@^2.9.3:
+tsparticles-updater-wobble@^2.8.0:
   version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles-updater-wobble/-/tsparticles-updater-wobble-2.9.3.tgz"
+  resolved "https://registry.npmmirror.com/tsparticles-updater-wobble/-/tsparticles-updater-wobble-2.9.3.tgz#bc32df97271f4fdbe1a60ee8cba4736ecd00dc74"
   integrity sha512-/Doid0P/OjaO9cUzD/Z3j0GNA+8X3DUvVsOo/5mPt914PJBbcWYGpweE8u75ZPcHe9OM5u6CHFMf3PMurCEBCw==
   dependencies:
     tsparticles-engine "^2.9.3"
 
-tsparticles@^2.9.3:
-  version "2.9.3"
-  resolved "https://registry.npmmirror.com/tsparticles/-/tsparticles-2.9.3.tgz"
-  integrity sha512-9NB+zrmR3uaj/k0RZ8Awa4lhpq2PqYFR/jUhia/Z4tKwvNdIR4xkpd4NkkGn/xmqRFeN658xHxOE+yVU+y+XFA==
+tsparticles@2.8.0:
+  version "2.8.0"
+  resolved "https://registry.npmmirror.com/tsparticles/-/tsparticles-2.8.0.tgz#74bbf51bfb223f8b51b5b441ac0efe9dc12a6a24"
+  integrity sha512-TgIdmPU/leNK68n2dgu+lRsC3At0pbP0xP3SU9gLkMyJxXHlsvtTsFafR2q9PlD1FoAPxkBMBTwspysagCeFdA==
   dependencies:
-    tsparticles-engine "^2.9.3"
-    tsparticles-interaction-external-trail "^2.9.3"
-    tsparticles-plugin-absorbers "^2.9.3"
-    tsparticles-plugin-emitters "^2.9.3"
-    tsparticles-slim "^2.9.3"
-    tsparticles-updater-destroy "^2.9.3"
-    tsparticles-updater-roll "^2.9.3"
-    tsparticles-updater-tilt "^2.9.3"
-    tsparticles-updater-twinkle "^2.9.3"
-    tsparticles-updater-wobble "^2.9.3"
+    tsparticles-engine "^2.8.0"
+    tsparticles-interaction-external-trail "^2.8.0"
+    tsparticles-plugin-absorbers "^2.8.0"
+    tsparticles-plugin-emitters "^2.8.0"
+    tsparticles-slim "^2.8.0"
+    tsparticles-updater-destroy "^2.8.0"
+    tsparticles-updater-roll "^2.8.0"
+    tsparticles-updater-tilt "^2.8.0"
+    tsparticles-updater-twinkle "^2.8.0"
+    tsparticles-updater-wobble "^2.8.0"
 
 tsutils@^3.21.0:
   version "3.21.0"
@@ -2855,7 +2860,7 @@ vue-eslint-parser@^9.0.0, vue-eslint-parser@^9.0.1:
 
 vue-particles@^1.0.9:
   version "1.0.9"
-  resolved "https://registry.npmmirror.com/vue-particles/-/vue-particles-1.0.9.tgz"
+  resolved "https://registry.npmmirror.com/vue-particles/-/vue-particles-1.0.9.tgz#29d9cc2be0157df1c0a87ec3b96c96f33279526e"
   integrity sha512-9MUkX6Sq1x7guUHoN4Br4Dwtb+gY1t+uJMg0wxJtKKOURe/zS+8PsKwMhspCfl4ch3EM5nrwhASVX2UizKb41w==
   dependencies:
     particles.js "^2.0.0"

@@ -1,9 +1,19 @@
 <script lang="ts" setup>
 import { ArrowRight } from '@element-plus/icons-vue'
+
+import { useUserStore } from "@/stores/users"
 import { useAsideStore } from '@/stores/create'
 import { storeToRefs } from 'pinia'
-
+import router from '@/router';
 const { isLeftIcon } = storeToRefs(useAsideStore())
+const { userinfo } = useUserStore()
+const { logout } = useUserStore()
+
+const onLoginout = () => {
+	logout()
+	router.push("/login")
+}
+
 </script>
 
 <template>
@@ -25,17 +35,22 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 		</div>
 		<div class="hright">
 			<div class="btn">
-				<el-icon><Setting /></el-icon>
+				<el-icon>
+					<Setting />
+				</el-icon>
 			</div>
 			<div class="btn">
-				<el-icon><FullScreen /></el-icon>
+				<el-icon>
+					<FullScreen />
+				</el-icon>
 			</div>
 			<div>
 				<el-dropdown>
 					<span class="el-dropdown-link">
 						<div class="youjiao">
-							<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-							<div>神龙教主</div>
+							<el-avatar
+								:src="userinfo.avatar || 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'" />
+							<div>{{ userinfo.username }}</div>
 							<el-icon class="el-icon--right">
 								<arrow-down />
 							</el-icon>
@@ -43,9 +58,8 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 					</span>
 					<template #dropdown>
 						<el-dropdown-menu>
-							<el-dropdown-item>Action 1</el-dropdown-item>
-							<el-dropdown-item>Action 2</el-dropdown-item>
-							<el-dropdown-item>Action 3</el-dropdown-item>
+							<el-dropdown-item disabled>{{ userinfo.roleName || "未分配角色" }}</el-dropdown-item>
+							<el-dropdown-item @click="onLoginout">退出</el-dropdown-item>
 						</el-dropdown-menu>
 					</template>
 				</el-dropdown>
@@ -61,10 +75,12 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 	justify-content: space-between;
 	align-items: center;
 	border-bottom: 1px solid #e3e3e3;
+
 	.btn {
 		font-size: 22px;
 		margin: 5px;
 	}
+
 	.hleft {
 		display: flex;
 		align-items: center;
@@ -80,6 +96,7 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 			font-size: 15px;
 		}
 	}
+
 	.hright {
 		margin-right: 5px;
 		width: 30%;
@@ -87,17 +104,20 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
+
 		.youjiao {
 			outline: none;
 			display: flex;
 			align-items: center;
 		}
 	}
+
 	.content {
 		width: 100%;
 		height: 100%;
 		background-color: #327f8a;
 	}
+
 	.footer {
 		width: 100%;
 		height: 40px;

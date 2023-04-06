@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-// 接口
 import type { PostSmsLoginPayloadType } from '@/api/sms/type'
 
 import { postSmsSendApi, postSmsLoginApi } from '@/api/sms'
@@ -103,80 +102,19 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 </script>
 <template>
-    <div class="divbox">
-        <div class="divbox1">
-            <h1 style="color: white;">weavers运营平台🍍</h1>
-            <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="20px" class="demo-ruleForm">
-                <el-form-item prop="mobile">
-                    <el-input v-model.number="ruleForm.mobile" type="" autocomplete="off" placeholder="请输入手机号"
-                        width="300" />
-                </el-form-item>
-                <el-form-item prop="code">
-                    <el-input v-model="ruleForm.code" type="text" autocomplete="off" class="input2" placeholder="请输入验证" />
-                    <!-- disabled -->
-                    <el-button :disabled="sms.disabled" class="button2" @click="onSmscode">{{ sms.msg }}</el-button>
-                </el-form-item>
-                <el-form-item>
-                    <el-button @click="resetForm(ruleFormRef)">重置</el-button>
-                    <el-button type="primary" @click="submitForm">提交</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-    </div>
+    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="20px" class="demo-ruleForm">
+        <el-form-item prop="mobile">
+            <el-input v-model.number="ruleForm.mobile" type="" autocomplete="off" placeholder="请输入手机号" width="300" />
+        </el-form-item>
+        <el-form-item prop="code">
+            <el-input v-model="ruleForm.code" type="text" autocomplete="off" class="input2" placeholder="请输入验证" />
+            <!-- disabled -->
+            <el-button :disabled="sms.disabled" class="button2" @click="onSmscode">{{ sms.msg }}</el-button>
+        </el-form-item>
+        <el-form-item>
+            <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+            <el-button type="primary" @click="submitForm">提交</el-button>
+        </el-form-item>
+    </el-form>
 </template>
-<style lang='scss' scoped>
-.divbox {
-    width: 100%;
-    height: 100%;
-    background-color: #303a4a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .divbox1 {
-        width: 400px;
-        height: 400px;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-
-        :deep(.el-input) {
-            height: 40px;
-            width: 300px;
-        }
-
-        :deep(.el-form) {
-            margin-top: 5%;
-        }
-
-        .el-button.el-button {
-            height: 40px;
-        }
-
-        .el-button+.el-button {
-            height: 40px;
-            width: 76%;
-        }
-    }
-}
-
-.input2 {
-    width: 200px !important;
-    border: none !important;
-    border-radius: none;
-}
-
-.button2 {
-    height: 40px;
-    width: 100px;
-    background-color: #fff;
-    border: none;
-    color: rgb(167, 164, 164);
-    cursor: pointer;
-}
-
-.button2:hover {
-    color: rgb(101, 101, 226);
-}
-</style>
+<style lang='scss' scoped></style>

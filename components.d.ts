@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    Idnex: typeof import('./src/components/wsFrom/idnex.vue')['default']
     QfBox: typeof import('./src/components/qfBox/index.vue')['default']
     QfCard: typeof import('./src/components/qfCard/index.vue')['default']
     QfForm: typeof import('./src/components/qfForm/index.vue')['default']
@@ -54,5 +55,6 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     WsCard: typeof import('./src/components/wsCard/index.vue')['default']
     WsForm: typeof import('./src/components/wsForm/index.vue')['default']
+    WsFrom: typeof import('./src/components/wsFrom/index.vue')['default']
   }
 }

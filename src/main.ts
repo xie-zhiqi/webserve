@@ -7,6 +7,9 @@ import router from './router'
 //echarts
 import * as echarts from 'echarts'
 
+// 路由守卫
+import './interceptor'
+
 // 组件
 import Divbox from './components/divbox/index.vue'
 import QfBox from './components/qfBox/index.vue'
@@ -25,6 +28,7 @@ const app = createApp(App)
 // 粒子特效
 import Particles from 'particles.vue3'
 app.use(Particles)
+
 // pinia
 app.use(createPinia())
 // echarts

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // 接口 模块 hook  组件
-import type { GetRolePayloadType, GetRoleResType } from "@/api/role/types"
+import type { GetRolePayloadType, GetRoleResType, Role } from "@/api/role/types"
 
 import { useConfirm } from '@/hooks/useConfirm'
-import { getRoleApi } from "@/api/role/index"
+import { getRoleApi, deleRoleApi } from "@/api/role/index"
 import { Search, Delete } from '@element-plus/icons-vue'
 import { reactive, ref, onMounted } from 'vue'
 // 组件
@@ -22,6 +22,7 @@ const onsubmit = () => {
 	forRef.value.validate((isScuccess: boolean) => {
 		if (isScuccess) {
 			console.log(fromData)
+			onTable()
 		}
 	})
 }
@@ -61,16 +62,38 @@ const tableDate = reactive<GetRoleResType>({
 })
 
 // 删除
-const onDelete = () => {
-	useConfirm()
+const onDelete = (row: Role) => {
+	console.log("删除" + row.role_id);
+
+	useConfirm(row, deleRoleApi, onTable)
 }
+
+
+// 获取批量删除的键和值
+let ids: Array<string | number> = []
+const handleSelectionChange = (val: Role[]) => {
+	val.forEach((item: Role) => {
+		ids.push(item.role_id)
+		console.log(ids)
+	});
+
+}
+// 在onDeleteS函数中获取到handleSelectionChange里面处理好的role_id怎么操作？
+const onDeleteS = () => {
+	console.log("批量删除");
+	console.log(ids)
+	useConfirm({ role_id: ids.join(',') }, deleRoleApi, onTable)
+
+}
+
 // 编辑按钮
 const userEdit = ref()
 // 获取当前行的数据，传递给编辑组件
 const onuserEdit = (vlaue: any) => {
 	userEdit.value.state = true
-	userEdit.value.formDate.uname = vlaue.uname
-	userEdit.value.formDate.mobile = vlaue.mobile
+	userEdit.value.formDate.role_id = vlaue.role_id
+	userEdit.value.formDate.role_name = vlaue.role_name
+	userEdit.value.formDate.role_desc = vlaue.role_describe
 }
 
 // 分配角色按钮
@@ -83,14 +106,12 @@ const onuserJuese = (value: any) => {
 
 </script>
 <template>
-	<UserEdit ref="userEdit"></UserEdit>
+	<UserEdit ref="userEdit" :onTable="onTable"></UserEdit>
 	<UserJuese ref="userJuese"></UserJuese>
 	<Divbox>
 		<template #filter>
 			<el-form :inline="true" :model="fromData" ref="forRef">
-				<el-form-item label="用户名" prop="username">
-					<el-input v-model="fromData.role_name"></el-input>
-				</el-form-item>
+
 				<el-form-item label="角色名" prop="role_name">
 					<el-input v-model="fromData.role_name"></el-input>
 				</el-form-item>
@@ -103,8 +124,9 @@ const onuserJuese = (value: any) => {
 				</el-form-item>
 			</el-form>
 		</template>
+
 		<el-row>
-			<el-button type="danger" :icon="Delete"> 批量删除 </el-button>
+			<el-button type="danger" :icon="Delete" @click="onDeleteS"> 批量删除 </el-button>
 			<el-button type="primary">
 				<el-icon>
 					<CirclePlus />
@@ -112,7 +134,8 @@ const onuserJuese = (value: any) => {
 				添加
 			</el-button>
 		</el-row>
-		<el-table :data="tableDate.list" style="width: 100%" height="350" :border="true">
+		<el-table :data="tableDate.list" style="width: 100%" height="350" :border="true"
+			@selection-change="handleSelectionChange">
 			<el-table-column type="selection" width="55" fixed="left" align="center" />
 
 			<el-table-column color="red" prop="role_id" label="编号" width="180" sortable align="center" />
@@ -128,7 +151,7 @@ const onuserJuese = (value: any) => {
 						</el-icon>
 					</el-button>
 					<el-button type="success" @click="onuserJuese(scope.row)">分配角色</el-button>
-					<el-button type="danger" @click="onDelete">
+					<el-button type="danger" @click="onDelete(scope.row)">
 						<el-icon>
 							<Delete />
 						</el-icon>
@@ -162,5 +185,9 @@ const onuserJuese = (value: any) => {
 :deep(.tablebox) {
 	overflow-x: scroll;
 	overflow-y: scroll;
+}
+
+:deep(.el-input[data-v-a44b11cd]) {
+	width: 150px !important;
 }
 </style>

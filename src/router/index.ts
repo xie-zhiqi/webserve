@@ -22,6 +22,7 @@ const constantRoutes = [
 	},
 	{
 		path: '/login3',
+		name: 'login3',
 		component: () => import('@/views/login/index3.vue')
 	},
 	{

@@ -106,7 +106,7 @@ const tableDate = reactive<GetUserResType>({
 
 // 删除
 const onDelete = (row: User) => {
-	console.log('当前用户编号' + row.user_id);
+	// console.log('当前用户编号' + row.user_id);
 
 	useConfirm(row, deleteUserApi, onTableDate)
 }
@@ -155,6 +155,7 @@ const onChangezhuant = async (val: any) => {
 		message: msg,
 		type: state ? 'success' : 'error'
 	})
+
 
 }
 </script>
@@ -206,7 +207,8 @@ const onChangezhuant = async (val: any) => {
 				添加
 			</el-button>
 		</el-row>
-		<el-table :data="tableDate.list" style="width: 100%" :border="true" @selection-change="handleSelectionChange">
+		<el-table :data="tableDate.list" style="width: 100%" height="350" :border="true"
+			@selection-change="handleSelectionChange">
 			<el-table-column type="selection" width="55" fixed="left" align="center" />
 
 			<el-table-column prop="user_id" label="编号" width="80" sortable align="center" />
