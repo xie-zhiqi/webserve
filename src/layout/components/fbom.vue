@@ -44,7 +44,8 @@ const removeTab = (targetName: string) => {
 		<div class="fbom2">
 			<div class="tab">
 				<el-tabs v-model="editableTabsValue" type="card" class="demo-tabs" closable @tab-remove="removeTab">
-					<el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name"> </el-tab-pane>
+					<el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+					</el-tab-pane>
 				</el-tabs>
 			</div>
 			<div>
@@ -71,21 +72,25 @@ const removeTab = (targetName: string) => {
 .fbom {
 	height: 40px;
 	box-sizing: 0 1px 4px rgb(0 21 41 /8%);
+
 	.fbom2 {
 		display: flex;
 		justify-content: space-between;
 
 		align-items: center;
+
 		div {
-			.example-showcase .el-dropdown + .el-dropdown {
+			.example-showcase .el-dropdown+.el-dropdown {
 				margin-left: 15px;
 			}
+
 			.el-dropdown {
 				button {
 					outline: none !important;
 					margin-right: 10px;
 				}
 			}
+
 			.example-showcase .el-dropdown-link {
 				cursor: pointer;
 				color: var(--el-color-primary);
@@ -93,27 +98,32 @@ const removeTab = (targetName: string) => {
 				align-items: center;
 			}
 		}
+
 		.tab {
 			width: 70%;
 		}
+
 		:deep(.el-tabs__header) {
 			margin: 0 !important;
 		}
-		.demo-tabs > .el-tabs__content {
+
+		.demo-tabs>.el-tabs__content {
 			padding: 32px;
 			color: #6b778c;
 			font-size: 32px;
 			font-weight: 600;
 		}
+
 		:deep(.el-tabs--card > .el-tabs__header .el-tabs__nav) {
 			border: none !important;
 		}
+
 		:deep(.el-tabs--card > .el-tabs__header) {
 			border: none !important;
 		}
+
 		:deep(.el-tabs--card > .el-tabs__header .el-tabs__item) {
 			border: none !important;
 		}
 	}
-}
-</style>
+}</style>

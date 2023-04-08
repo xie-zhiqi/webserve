@@ -5,7 +5,7 @@ import axios from 'axios' // pnpm add axios
 // 创建axios实例
 const request: AxiosInstance = axios.create({
 	baseURL: '/fengtuanapi',
-	timeout: 6000,
+	timeout: 9000,
 	headers: {
 		'content-type': 'application/x-www-form-urlencoded'
 	}

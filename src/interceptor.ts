@@ -1,4 +1,5 @@
 import router from './router'
+import NProgress from 'nprogress'
 const whiteList: string[] = ['/login', '/login1', '/login2', '/login3', '/login4', '/404']
 
 router.beforeEach((to, from, next) => {
@@ -11,4 +12,9 @@ router.beforeEach((to, from, next) => {
 	} else {
 		next({ path: '/login' })
 	}
+	NProgress.start()
+})
+
+router.afterEach((to, from, next) => {
+	NProgress.done()
 })

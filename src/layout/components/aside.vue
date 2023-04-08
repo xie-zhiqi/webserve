@@ -24,8 +24,8 @@ const handleClose = (key: string, keyPath: string[]) => {
 		<h1 v-show="isLeftIcon">峰团运营平台</h1>
 	</div>
 	<el-col :span="12">
-		<el-menu default-active="2" class="el-menu-vertical-demo" :collapse="!isLeftIcon" @open="handleOpen"
-			@close="handleClose">
+		<el-menu active-text-color="#ffd04b" :unique-opened="true" default-active="0-0" class="el-menu-vertical-demo"
+			:collapse="!isLeftIcon" @open="handleOpen" @close="handleClose">
 			<!-- 一级菜单 -->
 			<template v-for="(item, index) in asyncRoutes" :key="index">
 				<el-sub-menu :index="String(index)">

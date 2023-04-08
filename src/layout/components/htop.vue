@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ArrowRight } from '@element-plus/icons-vue'
+import { useRoute } from "vue-router"
 
 import { useUserStore } from "@/stores/users"
 import { useAsideStore } from '@/stores/create'
@@ -8,6 +9,11 @@ import router from '@/router';
 const { isLeftIcon } = storeToRefs(useAsideStore())
 const { userinfo } = useUserStore()
 const { logout } = useUserStore()
+
+const route = useRoute()
+console.log(route);
+
+
 
 const onLoginout = () => {
 	logout()
@@ -29,7 +35,8 @@ const onLoginout = () => {
 			<div>
 				<el-breadcrumb :separator-icon="ArrowRight">
 					<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-					<el-breadcrumb-item :to="{ path: '/' }">首页2</el-breadcrumb-item>
+					<el-breadcrumb-item :to="{ path: $router.go }">{{ $route.matched[0].meta.title }}</el-breadcrumb-item>
+					<el-breadcrumb-item :to="{ path: $router.go }">{{ $route.matched[1].meta.title }}</el-breadcrumb-item>
 				</el-breadcrumb>
 			</div>
 		</div>
