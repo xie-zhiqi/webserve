@@ -42,6 +42,7 @@ const sms = reactive({
 })
 // 获取验证码
 const onSmscode = async () => {
+
     if (/^1[3-9]\d{9}$/.test(ruleForm.mobile)) {
         sms.disabled = true
         sms.t = setInterval(() => {
@@ -60,6 +61,8 @@ const onSmscode = async () => {
         } else {
             ElMessage.error(msg)
         }
+    } else {
+        ElMessage.error("请输入手机号")
     }
 }
 

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 // 接口 模块 hook  组件
+import { getAuthApi } from '@/api/auth'
+// getAuthApi
+
 import mock from '~mock/user'
 
 import { useConfirm } from '@/hooks/useConfirm'
 import { Delete } from '@element-plus/icons-vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 
 // 表格数据
 const tableDate = reactive({
@@ -12,6 +15,10 @@ const tableDate = reactive({
 	total: 0
 })
 
+
+onMounted(() => {
+	getAuthApi()
+})
 // 删除
 const onDelete = () => {
 	useConfirm()

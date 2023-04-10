@@ -1,11 +1,13 @@
 <script setup lang="ts">
 // 类型 组件 接口 模块
-import { asyncRoutes } from '@/router'
-// import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAsideStore } from '@/stores/create'
+import { useAuthStore } from "@/stores/auth"
+// 侧边栏仓库
 const { isLeftIcon } = storeToRefs(useAsideStore())
 
+// 获取权限菜单
+const { menus } = storeToRefs(useAuthStore())
 
 // 菜单展示
 // const isCollapse = ref(false)
@@ -27,18 +29,18 @@ const handleClose = (key: string, keyPath: string[]) => {
 		<el-menu active-text-color="#ffd04b" :unique-opened="true" default-active="0-0" class="el-menu-vertical-demo"
 			:collapse="!isLeftIcon" @open="handleOpen" @close="handleClose">
 			<!-- 一级菜单 -->
-			<template v-for="(item, index) in asyncRoutes" :key="index">
+			<template v-for="(item, index) in menus" :key="index">
 				<el-sub-menu :index="String(index)">
 					<template #title>
-						<i :class="['iconfont', item.meta.icon]"></i>
-						<span> {{ item.meta.title }}</span>
+						<i :class="['iconfont', item.icon]"></i>
+						<span> {{ item.auth_name }}</span>
 					</template>
 					<!-- 二级菜单 -->
 					<template v-for="(item2, index2) in item.children" :key="index2">
 						<el-menu-item-group>
 							<el-menu-item :index="`${index}-${index2}`" @click="$router.push(item2.path)">
-								<i :class="['iconfont', item2.meta.icon]"></i>
-								{{ item2.meta.title }}</el-menu-item>
+								<i :class="['iconfont', item2.icon]"></i>
+								{{ item2.auth_name }}</el-menu-item>
 						</el-menu-item-group>
 					</template>
 				</el-sub-menu>

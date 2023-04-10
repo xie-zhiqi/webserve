@@ -29,8 +29,8 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 }
 
 const ruleForm = reactive({
-    username: '',
-    password: '',
+    username: '神龙教主',
+    password: 'admin888',
 })
 
 const rules = reactive<FormRules>({

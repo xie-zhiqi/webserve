@@ -12,10 +12,8 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 	<div class="common-layout">
 		<el-container>
 			<div :class="{ menuMobileBg: true, menuMobileBgClose: true }"></div>
-			<el-aside
-				:style="{ width: isLeftIcon ? '200px' : '64px' }"
-				:class="{ aside: true, menuMobile: true, menuMobileClose: true }"
-			>
+			<el-aside :style="{ width: isLeftIcon ? '200px' : '64px' }"
+				:class="{ aside: true, menuMobile: true, menuMobileClose: true }">
 				<Aside></Aside>
 			</el-aside>
 			<el-main class="main">
@@ -27,7 +25,7 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 					<RouterView />
 				</div>
 				<div class="footer">
-					<div>2023 © QFADMIN Weavers-出品</div>
+					<div>2023 © QFADMIN Weavers</div>
 				</div>
 			</el-main>
 		</el-container>
@@ -37,22 +35,28 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 .common-layout {
 	height: 100%;
 }
+
 .aside {
 	background-color: #2d3a4b;
 	height: 100%;
 }
+
 .el-container {
 	height: 100%;
 }
+
 .el-main {
 	padding: 0 !important;
 }
+
 .main {
 	background-color: #f0f2f5;
 }
+
 .el-aside {
 	transition: width 0.3s;
 }
+
 .aside {
 	border: none !important;
 }
@@ -64,6 +68,7 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 	flex-direction: column;
 	background-color: #fff;
 }
+
 .content {
 	width: 96%;
 	height: calc(100% - 170px);
@@ -72,6 +77,7 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 	overflow-x: scroll;
 	margin: 20px auto;
 }
+
 .footer {
 	width: 100%;
 	height: 40px;
@@ -82,6 +88,7 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 	color: #2d3a4b;
 	background-color: #fff;
 }
+
 // }
 // 移动端菜单样式
 @media screen and (max-width: 990px) {
@@ -94,6 +101,7 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 		z-index: 11;
 		display: block;
 	}
+
 	.menuMobileBgClose {
 		display: none !important;
 	}
@@ -104,14 +112,15 @@ const { isLeftIcon } = storeToRefs(useAsideStore())
 		left: 0;
 		transition: all 0.5s;
 	}
+
 	.menuMobileClose {
 		position: fixed;
 		z-index: 10;
 		left: -200px !important;
 	}
 }
+
 .fbom .fbom2 div .el-dropdown button[data-v-be356b50] {
 	height: 25px;
 	width: 58px;
-}
-</style>
+}</style>

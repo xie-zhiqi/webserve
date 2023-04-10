@@ -38,7 +38,7 @@ import { loadFull } from 'tsparticles'
 import type { Engine } from 'tsparticles-engine'
 
 const particlesInit = async (engine: Engine) => {
-    await loadFull(engine)
+    await loadFull(engine as any)
 }
 
 const options = reactive({

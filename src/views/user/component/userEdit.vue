@@ -5,11 +5,6 @@ import type { FormInstance, FormRules } from 'element-plus'
 import type { PutUserPayloadType } from "@/api/user/types"
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-
-
-// 属性
-
-
 // 正则
 const checkAge = (rule: any, value: any, callback: any) => {
 	if (/^1[3-9]\d{9}$/.test(value) || value === '') {
