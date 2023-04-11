@@ -28,6 +28,8 @@ const app = createApp(App)
 // 粒子特效
 import Particles from 'particles.vue3'
 app.use(Particles)
+// 动画库
+import 'animate.css'
 
 // pinia
 app.use(createPinia())

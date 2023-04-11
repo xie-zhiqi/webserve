@@ -1,16 +1,31 @@
 <script setup lang='ts'>
 // 接口
-import { postLoginApi } from "@/api/login"
-import { reactive, ref } from 'vue'
+// postLoginSaomaApi
+import { postLoginApi, } from "@/api/login"
+import { reactive, ref, watchEffect } from 'vue'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { uuid } from "@/utils/index"
 // pinai模块
 import { useUserStore } from "@/stores/users"
 import router from "@/router";
-
+import QrcodeVue from 'qrcode.vue'
 const { login } = useUserStore()
-
 const ruleFormRef = ref<FormInstance>()
-
+const stateuuid = ref(uuid())
+const state = ref(true)
+const state2 = ref(false)
+const onsatate = () => {
+    state.value = !state.value
+    state2.value = !state2.value
+}
+watchEffect(() => {
+    if (!state.value) {
+        stateuuid.value = uuid()
+        console.log(stateuuid.value);
+    } else {
+        console.log('1')
+    }
+})
 
 const validatePass = (rule: any, value: any, callback: any) => {
     if (value === "") {
@@ -27,17 +42,14 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
         callback()
     }
 }
-
 const ruleForm = reactive({
     username: '神龙教主',
     password: 'admin888',
 })
-
 const rules = reactive<FormRules>({
     username: [{ validator: validatePass, trigger: 'blur' }],
     password: [{ validator: validatePass2, trigger: 'blur' }],
 })
-
 const submitForm = () => {
     if (!ruleFormRef.value) return
     ruleFormRef.value?.validate(async (valid) => {
@@ -53,11 +65,6 @@ const submitForm = () => {
         }
     })
 }
-
-// const resetForm = (formEl: FormInstance | undefined) => {
-//     if (!formEl) return
-//     formEl.resetFields()
-// }
 </script>
 <template>
     <div class="divbox">
@@ -65,12 +72,20 @@ const submitForm = () => {
             <div class="divbox1">
                 <img src="../../assets/login1Bg.png" alt="">
             </div>
-            <div class="divbox2">
+            <div class="divbox2 animate__slideInDown animate__animated">
+                <i v-show="state" class="iconfont icon-erweimajiaobiao jiaobiao" @click="onsatate"></i>
                 <div class="divlogo">
+                    <i v-show="state2" class="iconfont icon-fanhui fanhui" @click="onsatate"></i>
                     <img src="@/assets/logo.png" alt="">
-                    <h1>weaver运营平台</h1>
+                    <h1>{{ state ? 'weaver运营平台' : '扫码登录' }}</h1>
                 </div>
-                <el-form ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" label-width="50px"
+                <el-form v-show="state2" class="erweima">
+                    <div>
+                        <qrcode-vue class="erweima1" :value="`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxed58e834201d0894&redirect_uri=http://kg.zhaodashen.cn/mt/admin/qr/login.jsp&response_type=code&scope=snsapi_base&state=${stateuuid
+                            }&connect_redirect=1#wechat_redirect`" size:300></qrcode-vue>
+                    </div>
+                </el-form>
+                <el-form v-show="state" ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" label-width="50px"
                     class="demo-ruleForm">
                     <el-form-item label="账户" prop="username">
                         <el-input v-model="ruleForm.username" type="text" autocomplete="off" />
@@ -78,7 +93,6 @@ const submitForm = () => {
                     <el-form-item label="密码" prop="password">
                         <el-input v-model="ruleForm.password" type="password" autocomplete="off" />
                     </el-form-item>
-
                     <el-form-item>
                         <el-button class="loginbox" type="primary" @click="submitForm">登录</el-button>
                         <!-- <el-button @click="resetForm(ruleFormRef)">Reset</el-button> -->
@@ -129,37 +143,63 @@ const submitForm = () => {
             flex-direction: column;
             margin-left: 6%;
 
-            .divlogo {
-                width: 100%;
+            .erweima {
+                div {
+                    .erweima1 {
+                        width: 250px !important;
+                        height: 250px !important;
+                        margin-left: 10%;
+                    }
+                }
+            }
+        }
+
+        .jiaobiao {
+            position: relative;
+            left: 46%;
+            top: -12%;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .divlogo {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10%;
+
+            .fanhui {
+                font-size: 40px;
+                position: relative;
+                left: 68%;
+                top: -59%;
+                cursor: pointer;
+            }
+
+            img {
+                width: 50px;
                 height: 50px;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 10%;
-
-                img {
-                    width: 50px;
-                    height: 50px;
-                    margin-right: 3%;
-                }
-
-                h1 {
-                    // color: #fff;
-                    margin: 0;
-                    font-size: 40px;
-                }
+                margin-right: 3%;
             }
 
-            .loginbox {
-                width: 100%;
-                height: 38px;
+            h1 {
+                // color: #fff;
+                margin: 0;
+                font-size: 40px;
             }
+        }
 
-            .el-input {
-                height: 38px;
-                width: 260px;
-            }
+        .loginbox {
+            width: 100%;
+            height: 38px;
+        }
+
+        .el-input {
+            height: 38px;
+            width: 260px;
         }
     }
 }

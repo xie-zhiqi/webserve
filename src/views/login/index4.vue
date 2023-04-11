@@ -106,8 +106,8 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 </script>
 <template>
-    <div class="divbox">
-        <div class="divbox1">
+    <div class="divbox ">
+        <div class="divbox1 animate__animated  animate__lightSpeedInRight">
             <h1 style="color: white;">weavers运营平台🍍</h1>
             <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="20px" class="demo-ruleForm">
                 <el-form-item prop="mobile">

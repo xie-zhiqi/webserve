@@ -11,3 +11,6 @@ export interface PostLoginResType {
 	roleName: string
 	avatar: string
 }
+export interface PostLoginSaomaPayloadType {
+	state :string|number
+}

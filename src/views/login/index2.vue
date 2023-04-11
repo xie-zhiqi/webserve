@@ -1,23 +1,21 @@
 <script setup lang='ts'>
 </script>
 <template>
-    <div class="divbox">
-        <div class="divbox1"></div>
-    </div>
+    <h1>login2</h1>
+    <router-link to="/login">
+        <button>点击后退</button>
+    </router-link>
 </template>
 <style lang='scss' scoped>
-.divbox {
-    width: 100%;
-    height: 100%;
-    background-color: #000;
+h1 {
+    text-align: center;
+}
 
-    .divbox1 {
-        width: 100%;
-        height: 100%;
-        background-color: #000;
-        background-image: url(../../assets/img/bg.jpg);
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-    }
+button {
+    position: relative;
+    // margin: 0 auto;
+    left: 47%;
+    width: 80px;
+    height: 40px;
 }
 </style>
