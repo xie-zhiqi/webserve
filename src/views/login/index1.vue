@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 // 接口
 // postLoginSaomaApi
-import { postLoginApi, } from "@/api/login"
+import { postLoginApi, postLoginSaomaApi } from "@/api/login"
 import { reactive, ref, watchEffect } from 'vue'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { uuid } from "@/utils/index"
@@ -9,7 +9,7 @@ import { uuid } from "@/utils/index"
 import { useUserStore } from "@/stores/users"
 import router from "@/router";
 import QrcodeVue from 'qrcode.vue'
-const { login } = useUserStore()
+const { login, save } = useUserStore()
 const ruleFormRef = ref<FormInstance>()
 const stateuuid = ref(uuid())
 const state = ref(true)
@@ -18,12 +18,26 @@ const onsatate = () => {
     state.value = !state.value
     state2.value = !state2.value
 }
+let t: number = 0
 watchEffect(() => {
     if (!state.value) {
         stateuuid.value = uuid()
-        console.log(stateuuid.value);
+        t = setInterval(async () => {
+            const res = await postLoginSaomaApi({ state: stateuuid.value })
+            console.log(res);
+            if (res.state === 400) {
+                ElMessage.error(res.msg)
+                clearInterval(t)
+            } else if (res.state === 200 && res.msg === "登录成功") {
+                clearInterval(t)
+                const { token, username, roleName, avatar } = res
+                save(token, username, roleName, avatar)
+                ElMessage.success(res.msg)
+                router.push("/")
+            }
+        }, 1000)
     } else {
-        console.log('1')
+        clearInterval(t)
     }
 })
 

@@ -1,4 +1,5 @@
-{ "name": "erp",
+{
+  "name": "erp",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -20,6 +21,7 @@
     "particles.vue3": "^2.8.0",
     "pinia": "^2.0.32",
     "qrcode.vue": "^3.3.4",
+    "socket.io-client": "2.2.0",
     "tsparticles": "2.8.0",
     "tsparticles-engine": "2.8.0",
     "vite-plugin-eslint": "^1.8.1",

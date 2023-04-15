@@ -12,6 +12,17 @@ export const useUserStore = defineStore('user', () => {
 		token: localStorage.getItem('token') || ''
 	})
 
+	const save = (token: string, username: string, roleName: string, avatar: string) => {
+		userinfo.token = token
+		userinfo.username = username
+		userinfo.roleName = roleName
+		userinfo.avatar = avatar
+		// 数据持久化
+		localStorage.setItem('token', token)
+		localStorage.setItem('username', username)
+		localStorage.setItem('roleName', roleName)
+		localStorage.setItem('avatar', avatar || '')
+	}
 	// 登录
 	// 切记切记切记：pinia中不要去写副作用
 	// 生活中：副作用比如吃药 感冒了 不知道吃了啥药 挂了
@@ -20,15 +31,7 @@ export const useUserStore = defineStore('user', () => {
 		const { state, msg, token, username, roleName, avatar } = await postLoginApi(formData)
 		// console.log(state, msg, token, username, roleName)
 		if (state === 200) {
-			userinfo.token = token
-			userinfo.username = username
-			userinfo.roleName = roleName
-			userinfo.avatar = avatar
-			// 数据持久化
-			localStorage.setItem('token', token)
-			localStorage.setItem('username', username)
-			localStorage.setItem('roleName', roleName)
-			localStorage.setItem('avatar', avatar || '')
+			save(token, username, roleName, avatar)
 		}
 		// 调用完login方法后返回后端数据给视图写副作用
 		return { state, msg }
@@ -45,6 +48,7 @@ export const useUserStore = defineStore('user', () => {
 	return {
 		userinfo,
 		login,
-		logout
+		logout,
+		save
 	}
 })
